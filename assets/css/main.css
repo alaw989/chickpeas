@@ -1,0 +1,246 @@
+
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /*max-width: 1440px;*/
+    background-color: #fffefa;
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+html {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+ul {
+    padding: 0;
+}
+
+#__nuxt {
+    width: 100%;
+}
+
+p, h2, li {
+    /*color: #2d2926;*/
+}
+h1, h2, h3, h4, h6 {
+    font-family: 'Cabinet Grotesk', sans-serif;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 4.37rem;
+}
+
+@media (max-width: 1024px) {
+    h2 {
+        font-size: 2.25rem;
+        line-height: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2rem;
+        line-height: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5rem;
+        line-height: .9rem;
+    }
+}
+
+h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    line-height: 1.875rem;
+}
+
+/* Base (desktop) */
+p {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.3125rem;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 2.375;
+}
+
+@media (max-width: 1024px) {
+    p {
+        font-size: 1.25rem;
+        line-height: 2.25;
+    }
+}
+
+@media (max-width: 768px) {
+    p {
+        font-size: 1.125rem;
+        line-height: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    p {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+}
+
+
+
+p, li {
+    font-family: 'PT Sans', serif;
+}
+
+.button-dark {
+    background-color: #3f6e4d;
+    border: none;
+    padding: 15px 25px;
+    border-radius:10px;
+    color: #e6fbcc;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+    max-width: 200px;
+    transition: .5s all;
+    outline: 2px solid #3f6e4d;
+}
+
+.button-dark:hover {
+    background-color: #e6fbcc;
+    color: #3f6e4d;
+    outline: 2px solid #3f6e4d;
+    transition: .5s all;
+}
+
+.button-light {
+    background-color: #e6fbcc;
+    border: none;
+    padding: 15px 25px;
+    border-radius:10px;
+    color: #3f6e4d;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+    max-width: 200px;
+    transition: .5s all;
+    outline: 2px solid #e6fbcc;
+}
+
+.button-light:hover {
+    background-color: #3f6e4d;
+    color: #e6fbcc;
+    outline: 2px solid #e6fbcc;
+    transition: .5s all;
+}
+
+.menu-wrapper {
+    max-width: 420px;
+
+    .appetizers,
+    .breakfast,
+    .dinner {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Default: 1 column on small screens */
+        gap: 1.5rem;
+
+        li {
+            width: 100%;
+        }
+    }
+
+    /* Medium screens (≥768px) - two columns */
+    @media (min-width: 768px) {
+        .appetizers,
+        .breakfast,
+        .dinner {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+    }
+
+    /* Large screens (≥1024px) - three columns */
+    @media (min-width: 1024px) {
+        .appetizers,
+        .breakfast,
+        .dinner {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Extra large screens (≥1280px) - four columns */
+    @media (min-width: 1280px) {
+        .appetizers,
+        .breakfast,
+        .dinner {
+
+        }
+    }
+
+    /* 2XL screens (≥1536px) - five columns */
+    @media (min-width: 1536px) {
+        .appetizers,
+        .breakfast,
+        .dinner {
+
+        }
+    }
+}
+
+/* Small screens and up */
+@media (min-width: 640px) {
+    .menu-wrapper {
+        max-width: 640px;
+    }
+}
+
+/* Medium screens and up */
+@media (min-width: 768px) {
+    .menu-wrapper {
+        max-width: 768px;
+    }
+}
+
+/* Large screens and up */
+@media (min-width: 1024px) {
+    .menu-wrapper {
+        max-width: 1024px;
+    }
+}
+
+/* Extra large screens and up */
+@media (min-width: 1280px) {
+    .menu-wrapper {
+        max-width: 1280px;
+    }
+}
+
+/* 2XL screens (extra extra large) */
+@media (min-width: 1536px) {
+    .menu-wrapper {
+        max-width: 1440px; /* or 1536px if you want */
+    }
+}
+
+
+
+
+
+
+
+
+
+
