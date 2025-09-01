@@ -93,8 +93,16 @@
 
 <script lang="ts">
 import axios from 'axios'
-import {defineComponent} from 'vue'
-import {useToast} from 'vue-toastification'
+import { defineComponent } from 'vue'
+
+type FormState = {
+  firstName: string
+  lastName: string
+  email: string
+  subject: string
+  message: string
+  website: string // honeypot
+}
 
 export default defineComponent({
   name: 'ContactForm',
@@ -112,61 +120,56 @@ export default defineComponent({
         email: '',
         subject: '',
         message: '',
-        website: '' // honeypot
-      },
+        website: ''
+      } as FormState,
       loading: false as boolean,
       ok: false as boolean,
       err: null as string | null
     }
   },
-  setup() {
-    const toast = useToast()
-    return {toast}
-  },
   methods: {
-    validateForm() {
-      // Basic required fields check
+    notifySuccess(msg: string) {
+      // $toast comes from plugins/toastification.client.ts; cast to avoid TS complaints
+      ;(this as any).$toast?.success?.(msg)
+    },
+    notifyError(msg: string) {
+      ;(this as any).$toast?.error?.(msg)
+    },
+
+    validateForm(): boolean {
       if (!this.form.firstName.trim()) {
-        this.toast.error('First name is required.')
+        this.notifyError('First name is required.')
         return false
       }
       if (!this.form.lastName.trim()) {
-        this.toast.error('Last name is required.')
+        this.notifyError('Last name is required.')
         return false
       }
       if (!this.form.email.trim()) {
-        this.toast.error('Email is required.')
+        this.notifyError('Email is required.')
         return false
       }
-      // Simple email regex
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(this.form.email)) {
-        this.toast.error('Please enter a valid email address.')
+        this.notifyError('Please enter a valid email address.')
         return false
       }
       if (!this.form.subject.trim()) {
-        this.toast.error('Subject is required.')
+        this.notifyError('Subject is required.')
         return false
       }
       if (!this.form.message.trim()) {
-        this.toast.error('Message is required.')
+        this.notifyError('Message is required.')
         return false
       }
       return true
     },
 
     async submit() {
-      console.log('submit triggered')
+      // simple bot trap
+      if (this.form.website) return
 
-      if (this.form.website) {
-        console.log('honeypot triggered, ignoring submit')
-        return
-      }
-
-      if (!this.validateForm()) {
-        console.log('validation failed');
-        return // abort submit if validation fails
-      }
+      if (!this.validateForm()) return
 
       this.loading = true
       this.ok = false
@@ -180,15 +183,17 @@ export default defineComponent({
           subject: this.form.subject,
           message: this.form.message,
           _subject: `Contact: ${this.form.subject || 'New message'}`,
-          _honeypot: this.form.website,
+          _honeypot: this.form.website
         }
 
         await axios.post(this.endpoint, payload, {
-          headers: { Accept: 'application/json' },
+          headers: { Accept: 'application/json' }
         })
 
         this.ok = true
-        this.toast.success("Thanks! We'll be in touch.")
+        this.notifySuccess("Thanks! We'll be in touch.")
+
+        // reset
         this.form.firstName = ''
         this.form.lastName = ''
         this.form.email = ''
@@ -196,13 +201,13 @@ export default defineComponent({
         this.form.message = ''
       } catch (error: any) {
         let errMsg = 'Something went wrong.'
-        if (error.response?.data?.errors?.[0]?.message) {
+        if (error?.response?.data?.errors?.[0]?.message) {
           errMsg = error.response.data.errors[0].message
-        } else if (error.message) {
+        } else if (error?.message) {
           errMsg = error.message
         }
         this.err = errMsg
-        this.toast.error(errMsg)
+        this.notifyError(errMsg)
       } finally {
         this.loading = false
       }
