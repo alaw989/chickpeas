@@ -1,0 +1,127 @@
+
+@font-face {
+    font-family: 'Libre Franklin';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/LibreFranklin-VariableFont_wght.ttf') format('truetype');
+}
+
+/* italic variant, same weight range */
+@font-face {
+    font-family: 'Libre Franklin';
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/LibreFranklin-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+/* assets/css/fonts.css */
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url('/fonts/CabinetGrotesk-Thin.woff2') format('woff2'),
+    url('/fonts/CabinetGrotesk-Thin.woff')  format('woff');
+}
+
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src: url('/fonts/CabinetGrotesk-Extralight.woff2') format('woff2'),
+    url('/fonts/CabinetGrotesk-Extralight.woff')  format('woff');
+}
+
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('/fonts/CabinetGrotesk-Light.woff2') format('woff2'),
+    url('/fonts/CabinetGrotesk-Light.woff')  format('woff');
+}
+
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/CabinetGrotesk-Regular.woff2') format('woff2'),
+    url('/fonts/CabinetGrotesk-Regular.woff')  format('woff');
+}
+
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/CabinetGrotesk-Medium.woff2') format('woff2'),
+    url('/fonts/CabinetGrotesk-Medium.woff')  format('woff');
+}
+
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/CabinetGrotesk-Bold.woff2') format('woff2'),
+    url('/fonts/CabinetGrotesk-Bold.woff')  format('woff');
+}
+
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('/fonts/CabinetGrotesk-ExtraBold.woff2') format('woff2'),
+    url('/fonts/CabinetGrotesk-ExtraBold.woff')  format('woff');
+}
+
+@font-face {
+    font-family: 'Cabinet Grotesk';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url('/fonts/CabinetGrotesk-Black.woff2') format('woff2'),
+    url('/fonts/CabinetGrotesk-Black.woff')  format('woff');
+}
+
+
+/* PT Sans Regular 400 */
+@font-face {
+    font-family: "PT Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/PTS​ans-Regular.ttf") format("truetype");
+}
+
+/* PT Sans Italic 400 */
+@font-face {
+    font-family: "PT Sans";
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/PTS​ans-Italic.ttf") format("truetype");
+}
+
+/* PT Sans Bold 700 */
+@font-face {
+    font-family: "PT Sans-Bold";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/PTS​ans-Bold.ttf") format("truetype");
+}
+
+/* PT Sans Bold Italic 700 */
+@font-face {
+    font-family: "PT Sans-BoldItalic";
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/PTS​ans-BoldItalic.ttf") format("truetype");
+}

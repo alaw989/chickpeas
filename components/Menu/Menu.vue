@@ -1,9 +1,9 @@
 <template>
   <div class="w-full mx-auto flex justify-center ">
-    <div class=" w-full mx-auto menu-wrapper">
-      <div >
+    <div class="w-full mx-auto menu-wrapper px-4 md:px-0">
+      <div class="mb-6">
         <h2 class="font-grotesk text-center">Our delicious dishes </h2>
-        <ul class="flex justify-center menu-header mb-12">
+        <ul class="flex justify-center menu-header mb-2">
           <li @click="selectedTab = 'Appetizers'" :class="{ active: selectedTab === 'Appetizers' }">
             Appetizers
           </li>
@@ -44,7 +44,6 @@ const selectedTab = ref('Breakfast');
 <style scoped>
 
 h2 {
-
   margin-bottom: 30px;
 }
 
@@ -54,7 +53,6 @@ h2 {
   cursor: pointer;
   padding: 5px 10px;
   font-size: 1.25rem;
-  font-weight: bold;
   line-height: 1.875rem;
 }
 
@@ -65,9 +63,6 @@ li {
 li.active {
   color: black;
 }
-
-
-
 
 /* switch transitions */
 .switch-enter-from {

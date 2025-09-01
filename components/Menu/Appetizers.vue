@@ -2,75 +2,65 @@
   <ul class="flex flex-wrap appetizers">
     <li v-for="(item, i) in items" :key="i">
       <img
-          src="/img/plate-1.jpg"
-          :alt="item.title"
-          class="app-img"
+          :src="`/img/${item.image || 'placeholder.jpg'}`"
+          :alt="item.name"
+          class="app-img rounded-2xl"
       />
       <div class="app-text">
-        <h3>{{ item.title }} — {{ item.price }}</h3>
-        <p>{{ item.desc }}</p>
+        <h3>{{ item.name }} — ${{ item.price }}</h3>
+        <p>{{ item.description }}</p>
       </div>
     </li>
   </ul>
 </template>
 
-<script setup lang="ts">
-const items = [
-  {title: 'Chickpeas Sampler', price: '$14.99', desc: 'Kibbe, hummus, stuffed grape leaves, meat pita, and tabbouleh.'},
-  {title: 'Falafel', price: '$8.99', desc: 'Ground chickpeas, parsley, cilantro, and spices.'},
-  {title: `Za'atar Pita`, price: '$6.99', desc: 'Grilled pita topped with za\'atar, olive oil, tomatoes, and cheese.'},
-  {title: 'Beef Sambousek', price: '$9.99', desc: 'Ground beef pastries fried to perfection for maximum flavor.'},
-  {
-    title: 'Spinach Sambousek',
-    price: '$8.99',
-    desc: 'Dough filled with spinach, onions, lemon, and a blend of spices.'
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+interface MenuItem {
+  name: string
+  description: string
+  price: number
+  image?: string
+}
+
+export default defineComponent({
+  name: 'Appetizers',
+
+  data() {
+    return {
+      items: [] as MenuItem[]
+    }
   },
-  {
-    title: 'Stuffed Grape Leaves',
-    price: '$8.99',
-    desc: 'Grape leaves stuffed with seasoned rice and herbs, served with pita and tzatziki sauce.'
-  },
-  {
-    title: 'Kibbe Rolls (6)',
-    price: '$10.99',
-    desc: 'Bulgur shells stuffed with ground meat, onions, pine nuts, and served with tzatziki sauce.'
-  },
-  {
-    title: 'Hummus with Pita',
-    price: '$7.99',
-    desc: 'Chickpea dip blended with tahini, lemon juice, garlic, and spices.'
-  },
-  {
-    title: 'Tabbouleh Salad',
-    price: '$7.99',
-    desc: 'Chopped parsley, tomatoes, onions, and bulgur wheat tossed with lemon juice and olive oil.'
-  },
-  {
-    title: 'Kafta (3)',
-    price: '$12.99',
-    desc: 'Spiced ground meat mixed with Mediterranean herbs, served with tzatziki sauce.'
-  },
-];
+
+  async mounted() {
+    try {
+      const res = await fetch('/data.json')
+      const data = await res.json()
+
+      // pull only appetizers (with images from JSON)
+      this.items = data.menu.appetizers
+    } catch (err) {
+      console.error('Failed to load menu:', err)
+    }
+  }
+})
 </script>
 
 <style scoped>
 .appetizers {
-
-
   li {
     list-style: none;
     background: #fff;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     align-items: center;
-
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
     .app-img {
-      width: 80px;
-      height: 80px;
-      border-radius: 9999px;
+      width: 180px;
+      height: 180px;
       object-fit: cover;
       flex-shrink: 0;
       margin-right: 1rem;
@@ -95,7 +85,4 @@ const items = [
     }
   }
 }
-
-
-
 </style>

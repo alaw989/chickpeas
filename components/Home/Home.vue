@@ -1,53 +1,79 @@
-
 <template>
   <div>
-
-    <section class="flex justify-center w-full mb-[100px]">
+    <section class="flex justify-center w-full">
       <div
-          class="w-full h-[800px] bg-center bg-cover bg-no-repeat"
-          style="background-image: url('/img/chickpeas-restaurant.jpg');"
+          class="restaurant-hero relative w-full bg-center bg-cover overflow-hidden"
+          style="background-image: url('/img/banner.png')"
           role="img"
           aria-label="Chickpeas Restaurant"
-      ></div>
+      >
+        <div class="relative z-0 overlay w-full h-full bg-black opacity-[.5]"></div>
+        <div class="absolute inset-0 flex items-center justify-center z-10 flex-col max-w-[900px] mx-auto px-4 text-center banner-text">
+          <h1 class="text-white font-grotesk  text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[5.62rem]">
+            A Symphony of flavors in every dish
+          </h1>
+          <p class="font-ptsans font-bold text-white max-w-[70%] sm:text-lg md:text-xl lg:text-2xl ">
+            We take great pride in crafting unforgettable dishes, and look forward to creating a memorable moment for you.
+          </p>
+        </div>
+      </div>
     </section>
-
-    <section class="mb-[100px] text-center">
+    <section class="triangle"></section>
+    <section class=" text-center">
       <Info></Info>
-
-      <p class="mt-2">Dine-in, takeout, and delivery (via DoorDash &amp; UberEats) available</p>
-
-      <a href="#"
-         class="order-online block mt-6 text-center bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600">
-        Order Online
-      </a>
-
     </section>
 
+    <section class="py-[100px] text-center flex justify-center bg-[#fff0de]">
+      <Menu></Menu>
+    </section>
 
+    <section class="text-center">
+      <Location></Location>
+    </section>
   </div>
 </template>
 
-<script setup >
-import Info from '~/components/Info.vue'
+<script setup>
+import Info from '~/components/Home/Info.vue'
+import Gallery from '~/components/Home/Gallery.vue'
+import Location from "~/components/Home/Location.vue";
 </script>
 
 <style scoped>
 
-.order-online {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.25rem;
-  background-color: #333;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
+h1 {
+  font-style: normal;
+  font-weight:900;
+  //line-height: 6.37rem;
+  margin-bottom: 30px;
+  color:#e6fccc;
+}
+.restaurant-hero {
+  position: relative;
+  height: calc(100vh - 200px);
 }
 
-.order-online:hover {
-  background-color: #555;
+.restaurant-hero::before,
+.restaurant-hero::after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  width: 100px;
+  height: 100px;
+  background: #e6fccc;
+  z-index: 10;
 }
 
-section p {
-  font-weight: 100;
+.restaurant-hero::before {
+  left: 0;
+  border-top-right-radius: 50px;
+  width: 50%;
 }
+
+.restaurant-hero::after {
+  right: 0;
+  border-top-left-radius: 50px;
+  width: 50%;
+}
+
 </style>

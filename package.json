@@ -19,15 +19,18 @@
     "@nuxt/ui": "^3.0.2",
     "@tailwindcss/vite": "^4.1.8",
     "@unhead/vue": "^2.0.5",
+    "axios": "^1.11.0",
     "eslint": "^9.24.0",
     "leaflet": "^1.9.4",
     "nuxt": "^3.16.2",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^7.0.0-beta.0"
+    "@nuxtjs/tailwindcss": "^7.0.0-beta.0",
+    "playwright": "^1.55.0"
   }
 }
