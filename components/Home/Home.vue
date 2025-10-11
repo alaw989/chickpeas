@@ -44,10 +44,10 @@ import Location from "~/components/Home/Location.vue";
 h1 {
   font-style: normal;
   font-weight:900;
-  //line-height: 6.37rem;
   margin-bottom: 30px;
   color:#e6fccc;
 }
+
 .restaurant-hero {
   position: relative;
   height: calc(100vh - 200px);

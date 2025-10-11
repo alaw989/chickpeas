@@ -11,6 +11,14 @@ export default defineNuxtConfig({
     '~/assets/css/fonts.css',
   ],
 
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/img/chickpea-icon.png' }
+      ]
+    }
+  },
+
 
 
   modules: [
