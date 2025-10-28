@@ -3,7 +3,7 @@
     <div class="w-full mx-auto menu-wrapper px-4 md:px-0">
       <div class="mb-6">
         <h2 class="font-grotesk text-center">Our delicious dishes </h2>
-        <ul class="flex justify-center menu-header mb-2">
+        <ul class="flex justify-center menu-header mb-2 flex-wrap">
           <li
               v-for="category in menuCategories"
               :key="category.key"
@@ -18,8 +18,9 @@
       <transition name="switch">
         <ul v-if="currentMenuItems.length" class="flex flex-wrap menu-items">
           <li v-for="(item, i) in currentMenuItems" :key="i">
-            <img
-                :src="`/img/${item.image || 'placeholder.jpg'}`"
+
+            <img 
+                :src="`/img/${item.image || 'med-plate-photo-coming-soon.png'}`"
                 :alt="item.name"
                 class="app-img rounded-2xl"
             >
@@ -82,6 +83,8 @@ onMounted(async () => {
   try {
     const res = await fetch('/data.json');
     menuData.value = await res.json();
+
+    console.log(menuData.value)
   } catch (err) {
     console.error('Failed to load menu data:', err);
   }

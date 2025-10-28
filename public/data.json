@@ -17,31 +17,31 @@
         "name": "Stuffed Grape Leaves / Dolmas (6) with Pita and Taziki Sauce",
         "description": "Stuffed with mixture of rice, meat, and loads of fresh herbs and spices.",
         "price": 9.99,
-        "image": "stuffed-grape-leaves.jpg"
+        "image": ""
       },
       {
         "name": "Patty Melt",
         "description": "Two smashed beef patties, American and Swiss cheese, grilled onion and southwest sauce served on a wheat or Texas toast.",
         "price": 10.99,
-        "image": "patty-melt.jpg"
+        "image": ""
       },
       {
         "name": "Chickpeas Sampler",
         "description": "Kibbe, hummus, stuffed grape leaves, meat pie, and tabbouleh.",
         "price": 18.99,
-        "image": "chickpeas-sampler.jpg"
+        "image": ""
       },
       {
         "name": "Falafel",
         "description": "Ground chickpeas, parsley, cilantro, and spices.",
         "price": 9.99,
-        "image": "falafel.jpg"
+        "image": ""
       },
       {
         "name": "Za'atar Pita",
         "description": "Grilled pita bread and topped with za'atar mix and olive oil.",
         "price": 6.99,
-        "image": "zaatar-pita.jpg"
+        "image": ""
       },
       {
         "name": "Beef Sambousek",
@@ -53,31 +53,31 @@
         "name": "Spinach Sambousek",
         "description": "Dough filled with spinach, onion, tomatoes, and blend of spices.",
         "price": 9.99,
-        "image": "spinach-sambousek.jpg"
+        "image": ""
       },
       {
         "name": "Kibbe Rolls (4) with Pita and Taziki Sauce",
         "description": "Ground beef with bulgur and spices rolled in a shape of football, and stuffed with meat, pine nuts, onion, and spices.",
         "price": 9.99,
-        "image": "kibbe-rolls.jpg"
+        "image": ""
       },
       {
         "name": "Hummus with Pita",
         "description": "Creamy puree of cooked chickpeas, tahini, lemon juice, and spices.",
         "price": 8.99,
-        "image": "hummus-with-pita.jpg"
+        "image": ""
       },
       {
         "name": "Tabbouleh Salad",
         "description": "Finely chopped parsley, tomatoes, onions, and soaked uncooked bulgur, seasoned with olive oil, lemon, salt, and pepper.",
         "price": 8.99,
-        "image": "tabbouleh-salad.jpg"
+        "image": ""
       },
       {
         "name": "Kafta (3) with Pita and Taziki Sauce",
         "description": "Beef, onion, and parsley seasoned with Mediterranean spices.",
         "price": 12.99,
-        "image": "kafta.jpg"
+        "image": ""
       }
     ],
     "salads": [
@@ -92,7 +92,7 @@
         "name": "Fattoush",
         "description": "Romaine lettuce, tomatoes, cucumber, red onions, and parsley, tossed with crispy seasoned pita chips.",
         "price": 11.99,
-        "image": "fattoush.jpg"
+        "image": ""
       },
       {
         "name": "Chickpeas Salad",
@@ -104,7 +104,7 @@
         "name": "House Salad",
         "description": "Romaine lettuce, tomatoes, shredded carrots, and green onion.",
         "price": 9.99,
-        "image": "house-salad.jpg"
+        "image": ""
       },
       {
         "name": "Lentils Salad",
@@ -118,13 +118,13 @@
         "name": "American Burger",
         "description": "Beef patty, lettuce, tomatoes, pickles, red onion, American cheese, and mayo. Served with one side",
         "price": 8.99,
-        "image": "american-burger.jpg"
+        "image": ""
       },
       {
         "name": "Grilled Chicken Sandwich",
         "description": "Mayo, lettuce, and tomatoes. Add cheese for an additional charge.",
         "price": 11.99,
-        "image": "grilled-chicken-sandwich.jpg"
+        "image": ""
       },
       {
         "name": "Beef Shawarma",
@@ -136,7 +136,7 @@
         "name": "Chicken Shawarma",
         "description": "Marinated chicken served on a pita bread with lettuce, tomatoes, and red onions with tzatziki or tahini sauce.",
         "price": 12.99,
-        "image": "chicken-shawarma-sandwich.jpg"
+        "image": ""
       },
       {
         "name": "Falafel Sandwich",
@@ -148,19 +148,19 @@
         "name": "Patty Melt",
         "description": "Two smashed beef patties, American and Swiss cheese, grilled onion and southwest sauce served on a wheat or Texas toast.",
         "price": 10.99,
-        "image": "patty-melt-sandwich.jpg"
+        "image": ""
       },
       {
         "name": "BLT",
         "description": "Grilled wheat toast mayo, three slices of bacon. Lettuce and tomatoes.",
         "price": 8.99,
-        "image": "blt.jpg"
+        "image": ""
       },
       {
         "name": "Meatballs Poboy",
         "description": "Toasted hoagy bun, four meatballs topped with marinara sauce and Swiss cheese.",
         "price": 11.99,
-        "image": "meatballs-poboy.jpg"
+        "image": ""
       }
     ],
     "entrees": [
@@ -168,7 +168,7 @@
         "name": "Beef Shawarma Platter",
         "description": "Grilled beef marinated and seasoned to perfection, orzo or rice, and roasted vegetables. Served with pita bread and zataar sauce.",
         "price": 20.99,
-        "image": "beef-shawarma-platter.jpg"
+        "image": ""
       },
       {
         "name": "Chicken Shawarma Platter",
@@ -186,13 +186,13 @@
         "name": "Grilled Shrimp Platter",
         "description": "Seasoned and grilled shrimp served with rice or orso pasta, roasted vegetable and a choice of house salad or soup.",
         "price": 16.99,
-        "image": "grilled-shrimp-platter.jpg"
+        "image": ""
       },
       {
         "name": "Pesto Shrimp Platter",
         "description": "Grilled shrimp with cherry tomatoes tossed with basil pesto served with rice or orso pasta, roasted vegetable, and a choice of soup or salad.",
         "price": 18.99,
-        "image": "pesto-shrimp-platter.jpg"
+        "image": ""
       },
       {
         "name": "Salmon with Roasted Vegetables",
@@ -204,13 +204,13 @@
         "name": "Meatloaf Dinner",
         "description": "Served with two sides and corn muffin.",
         "price": 11.99,
-        "image": "meatloaf-dinner.jpg"
+        "image": ""
       },
       {
         "name": "Fried Cat Fish",
         "description": "Served with two sides and corn muffin.",
         "price": 11.99,
-        "image": "fried-catfish.jpg"
+        "image": ""
       },
       {
         "name": "Country Fried Steak",
@@ -222,13 +222,13 @@
         "name": "Liver and Grilled Onion",
         "description": "Grilled liver, smothered with sauteed onions and covered with brown gravy served with two sides and corn muffin",
         "price": 11.99,
-        "image": "liver-and-grilled-onion.jpg"
+        "image": ""
       },
       {
         "name": "Smothered Burger Steak",
         "description": "Grilled beef steak covered with sauteed onion and brown or white gravy served with two sides and corn muffins",
         "price": 11.99,
-        "image": "smothered-burger-steak.jpg"
+        "image": ""
       }
     ],
     "kids_menu": [
@@ -236,29 +236,29 @@
         "name": "Grilled Cheese",
         "description": "Add chicken, beef or shrimp for an additional charge. Served with one side",
         "price": 6.99,
-        "image": "kids-grilled-cheese.jpg"
+        "image": ""
       },
       {
         "name": "Chicken Tenders",
         "description": "Fried comes grilled or with one side of your choice.",
         "price": 8.99,
-        "image": "kids-chicken-tenders.jpg"
+        "image": ""
       },
       {
         "name": "Kid's Shawarma Sandwich",
         "description": "Beef, chicken or shrimp with one side.",
         "price": 8.99,
-        "image": "kids-shawarma-sandwich.jpg"
+        "image": ""
       },
       {
         "name": "Hamburger with One Side",
         "price": 7.99,
-        "image": "kids-hamburger.jpg"
+        "image": ""
       },
       {
         "name": "Cheeseburger with One Side",
         "price": 8.99,
-        "image": "kids-cheeseburger.jpg"
+        "image": ""
       }
     ],
     "sides": [
@@ -266,7 +266,7 @@
         "name": "Tabbouleh",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-tabbouleh.jpg"
+        "image": ""
       },
       {
         "name": "Beef Sambousek",
@@ -278,77 +278,77 @@
         "name": "Spinach Sambousek",
         "price_small": 3.99,
         "price_large": 8.99,
-        "image": "side-spinach-sambousek.jpg"
+        "image": ""
       },
       {
         "name": "Rice",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-rice.jpg"
+        "image": ""
       },
       {
         "name": "Fries",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-fries.jpg"
+        "image": ""
       },
       {
         "name": "Orso",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-orso.jpg"
+        "image": ""
       },
       {
         "name": "Onion Rings",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-onion-rings.jpg"
+        "image": ""
       },
       {
         "name": "Roasted Vegetable",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-roasted-vegetables.jpg"
+        "image": ""
       },
       {
         "name": "Mash Potato",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-mash-potato.jpg"
+        "image": ""
       },
       {
         "name": "Mac & Cheese",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-mac-and-cheese.jpg"
+        "image": ""
       },
       {
         "name": "Green Beans",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-green-beans.jpg"
+        "image": ""
       },
       {
         "name": "Collard Greens",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-collard-greens.jpg"
+        "image": ""
       },
       {
         "name": "Fried Okra",
         "price_small": 4.99,
         "price_large": 8.99,
-        "image": "side-fried-okra.jpg"
+        "image": ""
       },
       {
         "name": "Hummus",
         "price_large": 8.99,
-        "image": "side-hummus.jpg"
+        "image": ""
       },
       {
         "name": "Grape Leaves",
         "price_large": 8.99,
-        "image": "side-grape-leaves.jpg"
+        "image": ""
       }
     ],
     "drinks": [
@@ -356,32 +356,32 @@
         "name": "Pepsi Product",
         "description": "The bold, refreshing, robust cola",
         "price": 2.99,
-        "image": "drink-pepsi.jpg"
+        "image": ""
       },
       {
         "name": "Bottled Water",
         "price": 2.99,
-        "image": "drink-bottled-water.jpg"
+        "image": ""
       },
       {
         "name": "Sweet and Unsweetened Tea",
         "price": 2.99,
-        "image": "drink-tea.jpg"
+        "image": ""
       },
       {
         "name": "Lebanese Tea",
         "price": 2.99,
-        "image": "drink-lebanese-tea.jpg"
+        "image": ""
       },
       {
         "name": "Apple Juice",
         "price": 2.99,
-        "image": "drink-apple-juice.jpg"
+        "image": ""
       },
       {
         "name": "Orange Juice",
         "price": 2.99,
-        "image": "drink-orange-juice.jpg"
+        "image": ""
       }
     ],
     "breakfast": [
@@ -413,7 +413,7 @@
         "name": "Pancake Breakfast",
         "description": "Stack of three pancakes, two eggs, and your choice of bacon or link sausage.",
         "price": 15.99,
-        "image": "pancake-breakfast.jpg"
+        "image": ""
       },
       {
         "name": "Za'atar Stuffed French Toast",
@@ -431,13 +431,13 @@
         "name": "Manoushe",
         "description": "Grilled pita bread topped with za'atar, olive oil, tomatoes, mixed greens, and feta cheese.",
         "price": 12.99,
-        "image": "manoushe.jpg"
+        "image": ""
       },
       {
         "name": "Egg Shawarma",
         "description": "Grilled pita bread stuffed with one egg, choice of beef or chicken shawarma, and mixed greens, topped with tahini sauce. Served with one side of your choice.",
         "price": 14.99,
-        "image": "egg-shawarma.jpg"
+        "image": ""
       }
     ],
     "protein_choices": [
