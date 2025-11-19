@@ -4,12 +4,8 @@
       <div class="mb-6">
         <h2 class="font-grotesk text-center">Our delicious dishes </h2>
         <ul class="flex justify-center menu-header mb-2 flex-wrap">
-          <li
-              v-for="category in menuCategories"
-              :key="category.key"
-              :class="{ active: selectedTab === category.key }"
-              @click="selectedTab = category.key"
-          >
+          <li v-for="category in menuCategories" :key="category.key" :class="{ active: selectedTab === category.key }"
+            @click="selectedTab = category.key">
             {{ category.label }}
           </li>
         </ul>
@@ -19,11 +15,8 @@
         <ul v-if="currentMenuItems.length" class="flex flex-wrap menu-items">
           <li v-for="(item, i) in currentMenuItems" :key="i">
 
-            <img 
-                :src="`/img/${item.image || 'med-plate-photo-coming-soon.png'}`"
-                :alt="item.name"
-                class="app-img rounded-2xl"
-            >
+            <img :src="`/img/${item.image || 'med-plate-photo-coming-soon.png'}`" :alt="item.name"
+              class="app-img rounded-2xl">
             <div class="app-text">
               <h3>
                 {{ item.name }} —
@@ -43,52 +36,82 @@
 
 </template>
 
-<script setup>
-import {ref, computed, onMounted} from 'vue';
+<script>
+export default {
+  data() {
+    return {
+      selectedTab: 'Entrees',
+      menuData: null,
+      menuData2: null
+    }
+  },
+  computed: {
+    menuCategories() {
+      if (!this.menuData) return []
+      if (!this.menuData2) return []
 
-const selectedTab = ref('Breakfast');
-const menuData = ref(null);
-
-const menuCategories = computed(() => {
-  if (!menuData.value) return [];
-
-  const categoryMap = {
-    appetizers: 'Appetizers',
-    salads: 'Salads',
-    sandwiches: 'Sandwiches',
-    entrees: 'Entrees',
-    kids_menu: 'Kids Menu',
-    sides: 'Sides',
-    drinks: 'Drinks',
-    breakfast: 'Breakfast'
-  };
-
-  return Object.keys(menuData.value.menu)
-      .filter(key => key !== 'featured_items' && key !== 'protein_choices' && Array.isArray(menuData.value.menu[key]) && menuData.value.menu[key].length > 0)
-      .map(key => ({
-        key: categoryMap[key] || key.charAt(0).toUpperCase() + key.slice(1),
-        label: categoryMap[key] || key.charAt(0).toUpperCase() + key.slice(1),
-        dataKey: key
+      const categoryMap2 = (this.menuData2 || []).map(item => ({
+        [item.menu_item_type]: item.menu_item_type,
       }));
-});
 
-const currentMenuItems = computed(() => {
-  if (!menuData.value) return [];
+      console.log('cat map 2', categoryMap2)
 
-  const currentCategory = menuCategories.value.find(cat => cat.key === selectedTab.value);
-  return currentCategory ? menuData.value.menu[currentCategory.dataKey] || [] : [];
-});
 
-onMounted(async () => {
-  try {
-    const res = await fetch('/data.json');
-    menuData.value = await res.json();
+      const categoryMap = {
+        appetizers: 'Appetizers',
+        salads: 'Salads',
+        sandwiches: 'Sandwiches',
+        entrees: 'Entrees',
+        kids_menu: 'Kids Menu',
+        sides: 'Sides',
+        drinks: 'Drinks',
+        breakfast: 'Breakfast'
+      }
 
-    console.log(menuData.value)
-  } catch (err) {
-    console.error('Failed to load menu data:', err);
+      return Object.keys(this.menuData.menu)
+        .filter(key => key !== 'featured_items' && key !== 'protein_choices' && Array.isArray(this.menuData.menu[key]) && this.menuData.menu[key].length > 0)
+        .map(key => ({
+          key: categoryMap[key] || key.charAt(0).toUpperCase() + key.slice(1),
+          label: categoryMap[key] || key.charAt(0).toUpperCase() + key.slice(1),
+          dataKey: key
+        }))
+    },
+    currentMenuItems() {
+      if (!this.menuData || !this.menuCategories.length) return [];
+      console.log(this.menuCategories)
+      console.log('selectedTab ', this.selectedTab)
+      console.log('this.menuData2', this.menuData2)
+
+      const currentCategory2 = (this.menuData2 || []).find(
+        item => Array.isArray(item.menu_item_type) && item.menu_item_type[0] === this.selectedTab
+      );
+
+      console.log('currentCategory2', currentCategory2)
+      const currentCategory = this.menuCategories.find(cat => cat.key === this.selectedTab)
+      return currentCategory ? this.menuData.menu[currentCategory.dataKey] || [] : []
+    }
+  },
+  mounted() {
+    this.loadMenuData()
+  },
+  methods: {
+    async loadMenuData() {
+      try {
+        const [res, res2] = await Promise.all([
+          fetch('/data.json'),
+          fetch('https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc')
+        ])
+
+        this.menuData = await res.json()
+        this.menuData2 = await res2.json()
+
+
+      } catch (err) {
+        console.error('Failed to load menu data:', err)
+      }
+    }
   }
-});
+}
 </script>
 
 
@@ -245,4 +268,3 @@ h2 {
   transition: all 0.5s ease;
 }
 </style>
-
