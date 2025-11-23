@@ -11,26 +11,28 @@
         </ul>
       </div>
 
-      <transition name="switch">
-        <ul v-if="currentMenuItems.length" class="flex flex-wrap menu-items">
-          <li v-for="(item, i) in currentMenuItems" :key="i">
+      <div class="menu-items-wrapper" :style="{ minHeight: menuItemsHeight ? `${menuItemsHeight}px` : null }">
+        <transition name="switch" mode="out-in">
+          <ul v-if="currentMenuItems.length" :key="selectedTab" ref="menuList" class="flex flex-wrap menu-items">
+            <li v-for="(item, i) in currentMenuItems" :key="i">
 
-            <img :src="`/img/${item.image || 'med-plate-photo-coming-soon.png'}`" :alt="item.name"
-              class="app-img rounded-2xl">
-            <div class="app-text">
-              <h3>
-                {{ item.name }} —
-                <span v-if="item.price">${{ item.price }}</span>
-                <span v-else-if="item.price_small && item.price_large">
-                  Small ${{ item.price_small }} / Large ${{ item.price_large }}
-                </span>
-                <span v-else-if="item.price_large">${{ item.price_large }}</span>
-              </h3>
-              <p v-if="item.description">{{ item.description }}</p>
-            </div>
-          </li>
-        </ul>
-      </transition>
+              <img :src="item.image?.guid || '/img/med-plate-photo-coming-soon.png'" :alt="item.name"
+                class="app-img rounded-2xl">
+              <div class="app-text">
+                <h3>
+                  {{ item.name }} —
+                  <span v-if="item.price">${{ item.price }}</span>
+                  <span v-else-if="item.price_small && item.price_large">
+                    Small ${{ item.price_small }} / Large ${{ item.price_large }}
+                  </span>
+                  <span v-else-if="item.price_large">${{ item.price_large }}</span>
+                </h3>
+                <p v-if="item.description">{{ item.description }}</p>
+              </div>
+            </li>
+          </ul>
+        </transition>
+      </div>
     </div>
   </div>
 
@@ -42,69 +44,91 @@ export default {
     return {
       selectedTab: 'Entrees',
       menuData: null,
-      menuData2: null
+      menuItemTypes: null,
+      menuItemsHeight: 0
     }
   },
   computed: {
     menuCategories() {
-      if (!this.menuData) return []
-      if (!this.menuData2) return []
+      if (!this.menuItemTypes) return []
 
-      const categoryMap2 = (this.menuData2 || []).map(item => ({
-        [item.menu_item_type]: item.menu_item_type,
-      }));
+      return Object.entries(this.menuItemTypes).map(([slug, label]) => ({
+        key: label,
+        label,
+        dataKey: slug
+      }))
+    },
+    currentWpCategory() {
+      if (!this.menuData) return null
 
-      console.log('cat map 2', categoryMap2)
-
-
-      const categoryMap = {
-        appetizers: 'Appetizers',
-        salads: 'Salads',
-        sandwiches: 'Sandwiches',
-        entrees: 'Entrees',
-        kids_menu: 'Kids Menu',
-        sides: 'Sides',
-        drinks: 'Drinks',
-        breakfast: 'Breakfast'
-      }
-
-      return Object.keys(this.menuData.menu)
-        .filter(key => key !== 'featured_items' && key !== 'protein_choices' && Array.isArray(this.menuData.menu[key]) && this.menuData.menu[key].length > 0)
-        .map(key => ({
-          key: categoryMap[key] || key.charAt(0).toUpperCase() + key.slice(1),
-          label: categoryMap[key] || key.charAt(0).toUpperCase() + key.slice(1),
-          dataKey: key
-        }))
+      return (this.menuData || []).find(
+        item => Array.isArray(item.menu_item_type) && item.menu_item_type[0] === this.selectedTab
+      ) || null
     },
     currentMenuItems() {
-      if (!this.menuData || !this.menuCategories.length) return [];
-      console.log(this.menuCategories)
-      console.log('selectedTab ', this.selectedTab)
-      console.log('this.menuData2', this.menuData2)
+      if (!this.menuData) return []
 
-      const currentCategory2 = (this.menuData2 || []).find(
-        item => Array.isArray(item.menu_item_type) && item.menu_item_type[0] === this.selectedTab
-      );
-
-      console.log('currentCategory2', currentCategory2)
-      const currentCategory = this.menuCategories.find(cat => cat.key === this.selectedTab)
-      return currentCategory ? this.menuData.menu[currentCategory.dataKey] || [] : []
+      return (this.menuData || [])
+        .filter(item => {
+          const types = Array.isArray(item.menu_item_type)
+            ? item.menu_item_type
+            : [item.menu_item_type]
+          return types.includes(this.selectedTab)
+        })
+        .map(item => ({
+          name: item.menu_item_title || item.title?.rendered || '',
+          description: item.description || item.content?.rendered || '',
+          price: item.price || null,
+          price_small: item.price_small || null,
+          price_large: item.price_large || null,
+          image: item.image || null
+        }))
     }
   },
   mounted() {
     this.loadMenuData()
   },
+  watch: {
+    currentMenuItems: {
+      handler() {
+        this.updateMenuHeight()
+      },
+      deep: true,
+      immediate: true
+    }
+  },
   methods: {
+    updateMenuHeight() {
+      this.$nextTick(() => {
+        const list = this.$refs.menuList
+        this.menuItemsHeight = list ? list.offsetHeight : 0
+      })
+    },
     async loadMenuData() {
       try {
-        const [res, res2] = await Promise.all([
-          fetch('/data.json'),
-          fetch('https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc')
-        ])
+        const res = await fetch('https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc')
 
         this.menuData = await res.json()
-        this.menuData2 = await res2.json()
 
+        const toSlug = str =>
+          str
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, '_');
+
+        this.menuItemTypes = (this.menuData || []).reduce((map, item) => {
+          const types = Array.isArray(item.menu_item_type)
+            ? item.menu_item_type
+            : [item.menu_item_type];
+
+          types.forEach(label => {
+            if (label) {
+              map[toSlug(label)] = label; // slug matches the keys in data.json
+            }
+          });
+
+          return map;
+        }, {});
 
       } catch (err) {
         console.error('Failed to load menu data:', err)
@@ -166,6 +190,11 @@ h2 {
 }
 
 /* Menu Lists styling */
+.menu-items-wrapper {
+  width: 100%;
+  transition: min-height 0.2s ease;
+}
+
 .menu-items {
   margin: 0;
   padding: 0;
@@ -261,10 +290,10 @@ h2 {
 }
 
 .switch-enter-active {
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 }
 
 .switch-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 }
 </style>
