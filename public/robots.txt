@@ -1,1 +1,8 @@
+# Chickpeas Mediterranean Kitchen
+# https://chickpeas-mobile.com
 
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://chickpeas-mobile.com/sitemap.xml

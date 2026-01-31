@@ -1,4 +1,92 @@
-/*@import tailwindcss;*/
+@import "tailwindcss";
 
-@tailwind utilities;
+@theme {
+  /* Brand Colors */
+  --color-primary-500: #3f6e4d;
+  --color-primary-400: #4a8159;
+  --color-primary-600: #365f42;
 
+  --color-secondary-500: #e6fbcc;
+  --color-secondary-400: #f0fde0;
+  --color-secondary-600: #d4f5a8;
+
+  --color-background: #fffefa;
+  --color-surface-warm: #fff0de;
+  --color-surface-accent: #e6fccc;
+
+  /* Font Families */
+  --font-display: 'Cabinet Grotesk', sans-serif;
+  --font-body: 'PT Sans', sans-serif;
+  --font-grotesk: 'Cabinet Grotesk', sans-serif;
+  --font-ptsans: 'PT Sans', sans-serif;
+}
+
+/* Button Utilities */
+@utility btn-primary {
+  @apply bg-primary-500 text-secondary-500 px-6 py-4 rounded-lg font-bold
+         border-2 border-primary-500 transition-all duration-300 cursor-pointer;
+}
+
+@utility btn-primary-hover {
+  @apply hover:bg-secondary-500 hover:text-primary-500;
+}
+
+@utility btn-secondary {
+  @apply bg-secondary-500 text-primary-500 px-6 py-4 rounded-lg font-bold
+         border-2 border-secondary-500 transition-all duration-300 cursor-pointer;
+}
+
+@utility btn-secondary-hover {
+  @apply hover:bg-primary-500 hover:text-secondary-500;
+}
+
+/* Typography Utilities */
+@utility heading-display {
+  @apply font-display font-bold text-2xl md:text-3xl lg:text-4xl;
+}
+
+@utility heading-xl {
+  @apply font-grotesk font-bold text-3xl md:text-4xl lg:text-5xl leading-tight;
+}
+
+@utility heading-lg {
+  @apply font-grotesk font-bold text-2xl md:text-3xl lg:text-4xl leading-tight tracking-tight;
+}
+
+@utility heading-md {
+  @apply font-grotesk font-bold text-xl md:text-2xl lg:text-3xl leading-tight;
+}
+
+@utility eyebrow {
+  @apply font-grotesk text-sm md:text-base uppercase tracking-wider text-primary-500 font-semibold;
+}
+
+@utility text-body {
+  @apply font-body text-base md:text-lg leading-relaxed;
+}
+
+/* Layout Utilities */
+@utility section-container {
+  @apply w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8;
+}
+
+@utility section-wrap {
+  @apply w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8;
+}
+
+@utility section-padding {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+/* Button Styles */
+@utility button-dark {
+  @apply inline-block bg-primary-500 text-secondary-500 px-6 py-3 rounded-lg font-bold
+         border-2 border-primary-500 transition-all duration-300 cursor-pointer
+         hover:bg-secondary-500 hover:text-primary-500 no-underline;
+}
+
+@utility button-light {
+  @apply inline-block bg-secondary-500 text-primary-500 px-6 py-3 rounded-lg font-bold
+         border-2 border-primary-500 transition-all duration-300 cursor-pointer
+         hover:bg-primary-500 hover:text-secondary-500 no-underline;
+}
