@@ -90,3 +90,27 @@
          border-2 border-primary-500 transition-all duration-300 cursor-pointer
          hover:bg-primary-500 hover:text-secondary-500 no-underline;
 }
+
+/* Accessibility: Focus indicators for keyboard navigation */
+@layer base {
+  :focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  [role="tab"]:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+  }
+}
