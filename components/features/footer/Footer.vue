@@ -61,7 +61,7 @@
         </li>
 
         <li class="text-center">
-          <span class="text-sm opacity-80">Follow Us</span>
+          <span class="text-sm">Follow Us</span>
           <ul class="mt-2 flex justify-center md:justify-start space-x-3" aria-label="Social media links">
             <li>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" role="img" aria-label="Facebook">
@@ -79,7 +79,7 @@
     </div>
     <div class="flex justify-center mt-10 copyright border-t w-full pt-8 px-4">
       <div class="copyright-text w-full max-w-[1200px]">
-        <p class="text-xs opacity-70">© Chickpeas Mediterranean Kitchen. All rights reserved. Designed and built by Austin Law</p>
+        <p class="text-xs">© Chickpeas Mediterranean Kitchen. All rights reserved. Designed and built by Austin Law</p>
       </div>
     </div>
   </footer>
