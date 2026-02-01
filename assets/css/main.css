@@ -10,6 +10,28 @@ body {
     background-color: #fffefa;
 }
 
+/* Visible Focus Indicators for Accessibility */
+:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+[role="tab"]:focus-visible,
+[role="button"]:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 0;
+}
+
 /* Global Elements */
 ul {
     padding: 0;

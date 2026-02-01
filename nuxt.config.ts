@@ -36,14 +36,29 @@ export default defineNuxtConfig({
     head: {
       titleTemplate: '%s | Chickpeas Mediterranean Kitchen',
       meta: [
-        { name: 'theme-color', content: '#3f6e4d' }
+        { name: 'theme-color', content: '#3f6e4d' },
+        { name: 'author', content: 'Chickpeas Mediterranean Kitchen' },
+        { name: 'format-detection', content: 'telephone=no' },
       ],
       link: [
         { rel: 'icon', type: 'image/webp', href: '/img/chickpea-icon.webp' },
         // DNS prefetch for external resources
         { rel: 'dns-prefetch', href: 'https://basemaps.cartocdn.com' },
         { rel: 'preconnect', href: 'https://basemaps.cartocdn.com', crossorigin: '' },
-        // Font preloading handled by @nuxt/fonts module
+        // Image preloading for critical images
+        { rel: 'preload', as: 'image', href: '/img/banner.webp', type: 'image/webp' },
+        { rel: 'preload', as: 'image', href: '/img/chickpeas.webp', type: 'image/webp' },
+        // Route prefetch for navigation
+        { rel: 'prefetch', href: '/menu' },
+        { rel: 'prefetch', href: '/contact' },
+      ],
+      script: [
+        // Plausible Analytics - privacy-first analytics
+        {
+          defer: true,
+          src: 'https://plausible.io/js/script.js',
+          'data-domain': 'chickpeas-mobile.com'
+        }
       ]
     }
   },

@@ -7,53 +7,80 @@
         <p class="font-ptsans text-base md:text-lg text-gray-600 max-w-xl mx-auto mb-6">
           Fresh Mediterranean flavors made from scratch daily
         </p>
-        <ul class="flex justify-center menu-header flex-wrap">
-          <li v-for="category in menuCategories" :key="category.key" :class="{ active: selectedTab === category.key }"
-            @click="selectedTab = category.key">
-            {{ category.label }}
+        <ul class="flex justify-center menu-header flex-wrap" role="tablist" aria-label="Menu categories">
+          <li v-for="category in menuCategories" :key="category.key" role="presentation">
+            <button
+              role="tab"
+              :id="`tab-${category.dataKey}`"
+              :aria-selected="selectedTab === category.key"
+              :aria-controls="`panel-${category.dataKey}`"
+              :tabindex="selectedTab === category.key ? 0 : -1"
+              :class="{ active: selectedTab === category.key }"
+              @click="selectedTab = category.key"
+              @keydown="handleTabKeydown($event, category)"
+            >
+              {{ category.label }}
+            </button>
           </li>
         </ul>
       </div>
 
-      <div v-if="isLoading" class="py-10 text-center font-grotesk text-xl">
-        Loading menu…
+      <div v-if="isLoading" class="menu-skeleton">
+        <div v-for="i in 4" :key="`skeleton-${i}`" class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-line title"></div>
+            <div class="skeleton-line description"></div>
+            <div class="skeleton-line price"></div>
+          </div>
+        </div>
       </div>
       <p v-else-if="loadError" class="py-6 text-center text-red-600">
         {{ loadError }}
       </p>
       <div v-else class="menu-items-wrapper" :style="{ minHeight: menuItemsHeight ? `${menuItemsHeight}px` : null }">
-        <transition name="switch" mode="out-in">
-          <template v-if="currentMenuItems.length">
-            <ul :key="selectedTab" ref="menuContent" class="flex flex-wrap menu-items">
-              <li v-for="(item, i) in currentMenuItems" :key="item.id || i">
-
-                <NuxtImg
-                    :src="item.image?.guid || '/img/med-plate-photo-coming-soon.webp'"
-                    :alt="item.name ? `${item.name} menu item` : 'Menu item'"
-                    class="app-img rounded-2xl"
-                    loading="lazy"
-                    width="400"
-                    height="300"
-                    sizes="(max-width: 768px) 100vw, 400px"
-                />
-                <div class="app-text">
-                  <h3>
-                    {{ item.name }} —
-                    <span v-if="item.price">${{ item.price }}</span>
-                    <span v-else-if="item.price_small && item.price_large">
-                      Small ${{ item.price_small }} / Large ${{ item.price_large }}
-                    </span>
-                    <span v-else-if="item.price_large">${{ item.price_large }}</span>
-                  </h3>
-                  <p v-if="item.description">{{ item.description }}</p>
-                </div>
-              </li>
-            </ul>
-          </template>
-          <p v-else :key="`empty-${selectedTab}`" ref="menuContent" class="menu-empty">
-            No items available for this category right now.
-          </p>
-        </transition>
+        <div
+          v-for="category in menuCategories"
+          :key="`panel-${category.dataKey}`"
+          :id="`panel-${category.dataKey}`"
+          role="tabpanel"
+          :aria-labelledby="`tab-${category.dataKey}`"
+          :hidden="selectedTab !== category.key"
+        >
+          <transition name="switch" mode="out-in">
+            <template v-if="selectedTab === category.key">
+              <template v-if="getItemsForCategory(category.key).length">
+                <ul ref="menuContent" class="flex flex-wrap menu-items">
+                  <li v-for="(item, i) in getItemsForCategory(category.key)" :key="item.id || i">
+                    <NuxtImg
+                        :src="item.image?.guid || '/img/med-plate-photo-coming-soon.webp'"
+                        :alt="item.name ? `${item.name} menu item` : 'Menu item'"
+                        class="app-img rounded-2xl"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                        sizes="(max-width: 768px) 100vw, 400px"
+                    />
+                    <div class="app-text">
+                      <h3>
+                        {{ item.name }} —
+                        <span v-if="item.price">${{ item.price }}</span>
+                        <span v-else-if="item.price_small && item.price_large">
+                          Small ${{ item.price_small }} / Large ${{ item.price_large }}
+                        </span>
+                        <span v-else-if="item.price_large">${{ item.price_large }}</span>
+                      </h3>
+                      <p v-if="item.description">{{ item.description }}</p>
+                    </div>
+                  </li>
+                </ul>
+              </template>
+              <p v-else ref="menuContent" class="menu-empty">
+                No items available for this category right now.
+              </p>
+            </template>
+          </transition>
+        </div>
       </div>
     </div>
   </div>
@@ -167,6 +194,53 @@ export default {
         const content = this.$refs.menuContent
         this.menuItemsHeight = content ? content.offsetHeight : this.menuItemsHeight
       })
+    },
+    getItemsForCategory(categoryKey) {
+      if (!this.menuData) return []
+
+      return (this.menuData || [])
+        .filter(item => {
+          const types = Array.isArray(item.menu_item_type)
+            ? item.menu_item_type
+            : [item.menu_item_type]
+          return types.includes(categoryKey)
+        })
+        .map(item => ({
+          id: item.id,
+          name: item.menu_item_title || item.title?.rendered || '',
+          description: (item.description || item.content?.rendered || '').replace(/<[^>]*>/g, '').trim(),
+          price: item.price || null,
+          price_small: item.price_small || null,
+          price_large: item.price_large || null,
+          image: item.image || null
+        }))
+    },
+    handleTabKeydown(event, currentCategory) {
+      const categories = this.menuCategories
+      const currentIndex = categories.findIndex(c => c.key === currentCategory.key)
+      let newIndex = currentIndex
+
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+        event.preventDefault()
+        newIndex = (currentIndex + 1) % categories.length
+      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        event.preventDefault()
+        newIndex = (currentIndex - 1 + categories.length) % categories.length
+      } else if (event.key === 'Home') {
+        event.preventDefault()
+        newIndex = 0
+      } else if (event.key === 'End') {
+        event.preventDefault()
+        newIndex = categories.length - 1
+      }
+
+      if (newIndex !== currentIndex) {
+        this.selectedTab = categories[newIndex].key
+        this.$nextTick(() => {
+          const newTabButton = document.getElementById(`tab-${categories[newIndex].dataKey}`)
+          newTabButton?.focus()
+        })
+      }
     }
   }
 }
@@ -186,6 +260,9 @@ export default {
 
 .menu-header li {
   list-style-type: none;
+}
+
+.menu-header button {
   cursor: pointer;
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
@@ -194,30 +271,37 @@ export default {
   color: #666;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
+  background: transparent;
+  border: none;
 }
 
 @media (min-width: 640px) {
-  .menu-header li {
+  .menu-header button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .menu-header li {
+  .menu-header button {
     font-size: 1.125rem;
   }
 }
 
-.menu-header li:hover {
+.menu-header button:hover {
   color: #3f6e4d;
   background: rgba(63, 110, 77, 0.08);
 }
 
-.menu-header li.active {
+.menu-header button.active {
   color: #3f6e4d;
   font-weight: 700;
   background: rgba(63, 110, 77, 0.1);
+}
+
+.menu-header button:focus-visible {
+  outline: 2px solid #3f6e4d;
+  outline-offset: 2px;
 }
 
 /* Menu Lists styling */
@@ -371,5 +455,94 @@ export default {
 
 .switch-leave-active {
   transition: all 0.2s ease;
+}
+
+/* Skeleton Loading States */
+.menu-skeleton {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .menu-skeleton {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 640px) {
+  .skeleton-card {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+}
+
+.skeleton-image {
+  width: 100%;
+  max-width: 200px;
+  height: 150px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .skeleton-image {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+.skeleton-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-line {
+  height: 1rem;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-line.title {
+  width: 60%;
+  height: 1.25rem;
+}
+
+.skeleton-line.description {
+  width: 80%;
+}
+
+.skeleton-line.price {
+  width: 30%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>
