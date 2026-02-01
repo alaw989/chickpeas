@@ -15,8 +15,15 @@
         </ul>
       </div>
 
-      <div v-if="isLoading" class="py-10 text-center font-grotesk text-xl">
-        Loading menu…
+      <div v-if="isLoading" class="menu-skeleton">
+        <div v-for="i in 4" :key="`skeleton-${i}`" class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-line title"></div>
+            <div class="skeleton-line description"></div>
+            <div class="skeleton-line price"></div>
+          </div>
+        </div>
       </div>
       <p v-else-if="loadError" class="py-6 text-center text-red-600">
         {{ loadError }}
@@ -371,5 +378,102 @@ export default {
 
 .switch-leave-active {
   transition: all 0.2s ease;
+}
+
+/* Skeleton loading styles */
+.menu-skeleton {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+@media (min-width: 1024px) {
+  .menu-skeleton {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 640px) {
+  .skeleton-card {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+}
+
+.skeleton-image {
+  width: 100%;
+  max-width: 200px;
+  height: 150px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .skeleton-image {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .skeleton-image {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.skeleton-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-line {
+  height: 1rem;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-line.title {
+  width: 60%;
+  height: 1.25rem;
+}
+
+.skeleton-line.description {
+  width: 90%;
+}
+
+.skeleton-line.price {
+  width: 30%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>
