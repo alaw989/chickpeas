@@ -34,12 +34,23 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      htmlAttrs: { lang: 'en' },
       titleTemplate: '%s | Chickpeas Mediterranean Kitchen',
       meta: [
-        { name: 'theme-color', content: '#3f6e4d' }
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'theme-color', content: '#3f6e4d' },
+        { name: 'author', content: 'Chickpeas Mediterranean Kitchen' },
+        { name: 'format-detection', content: 'telephone=no' },
       ],
       link: [
         { rel: 'icon', type: 'image/webp', href: '/img/chickpea-icon.webp' },
+        // Preload hero image for LCP improvement
+        { rel: 'preload', as: 'image', href: '/img/banner.webp', type: 'image/webp' },
+        { rel: 'preload', as: 'image', href: '/img/chickpeas.webp', type: 'image/webp' },
+        // Prefetch navigation routes
+        { rel: 'prefetch', href: '/menu' },
+        { rel: 'prefetch', href: '/contact' },
         // DNS prefetch for external resources
         { rel: 'dns-prefetch', href: 'https://basemaps.cartocdn.com' },
         { rel: 'preconnect', href: 'https://basemaps.cartocdn.com', crossorigin: '' },
@@ -66,6 +77,15 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     routeRules: {
+      // Security headers for all routes
+      '/**': {
+        headers: {
+          'X-Content-Type-Options': 'nosniff',
+          'X-Frame-Options': 'SAMEORIGIN',
+          'X-XSS-Protection': '1; mode=block',
+          'Referrer-Policy': 'strict-origin-when-cross-origin',
+        }
+      },
       // Static pages - aggressive caching
       '/': { prerender: true },
       '/menu': { prerender: true },

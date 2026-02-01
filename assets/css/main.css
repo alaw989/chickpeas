@@ -10,6 +10,37 @@ body {
     background-color: #fffefa;
 }
 
+/* Visible focus indicators for keyboard navigation (WCAG 2.1 AA) */
+:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* High contrast focus for light backgrounds */
+.bg-white :focus-visible,
+.bg-yellow-50 :focus-visible,
+[class*="bg-[#fff"] :focus-visible {
+    outline-color: #3f6e4d;
+}
+
+/* High contrast focus for dark backgrounds */
+.bg-primary :focus-visible,
+[class*="bg-[#3f6e4d]"] :focus-visible {
+    outline-color: #e6fbcc;
+}
+
 /* Global Elements */
 ul {
     padding: 0;
