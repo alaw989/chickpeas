@@ -43,7 +43,20 @@ export default defineNuxtConfig({
         // DNS prefetch for external resources
         { rel: 'dns-prefetch', href: 'https://basemaps.cartocdn.com' },
         { rel: 'preconnect', href: 'https://basemaps.cartocdn.com', crossorigin: '' },
-        // Font preloading handled by @nuxt/fonts module
+        // Image preloading for above-fold content
+        { rel: 'preload', as: 'image', href: '/img/banner.webp', type: 'image/webp' },
+        { rel: 'preload', as: 'image', href: '/img/chickpeas.webp', type: 'image/webp' },
+        // Page prefetching
+        { rel: 'prefetch', href: '/menu' },
+        { rel: 'prefetch', href: '/contact' },
+      ],
+      script: [
+        // Plausible Analytics - privacy-first analytics
+        {
+          defer: true,
+          src: 'https://plausible.io/js/script.js',
+          'data-domain': 'chickpeas-mobile.com'
+        }
       ]
     }
   },

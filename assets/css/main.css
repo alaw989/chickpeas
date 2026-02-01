@@ -10,6 +10,28 @@ body {
     background-color: #fffefa;
 }
 
+/* Focus Indicators for Keyboard Navigation (Accessibility) */
+:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+[role="tab"]:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Ensure focus styles work on interactive elements */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid #3f6e4d;
+    outline-offset: 2px;
+}
+
 /* Global Elements */
 ul {
     padding: 0;

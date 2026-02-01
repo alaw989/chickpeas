@@ -76,13 +76,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import 'leaflet/dist/leaflet.css'
 
 const mapRef = ref<HTMLElement | null>(null)
+const mapInitialized = ref(false)
+let observer: IntersectionObserver | null = null
 
-onMounted(async () => {
-  if (!mapRef.value || typeof window === 'undefined') return
+const initMap = async () => {
+  if (!mapRef.value || typeof window === 'undefined' || mapInitialized.value) return
+
+  mapInitialized.value = true
 
   const { default: L } = await import('leaflet')
 
@@ -119,6 +123,27 @@ onMounted(async () => {
     .bindPopup("Hello from Chickpea's!")
 
   setTimeout(() => map.invalidateSize(), 0)
+}
+
+onMounted(() => {
+  if (!mapRef.value) return
+
+  // Use IntersectionObserver to defer map loading until visible
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting && !mapInitialized.value) {
+        initMap()
+        observer?.disconnect()
+      }
+    },
+    { rootMargin: '100px' }
+  )
+
+  observer.observe(mapRef.value)
+})
+
+onUnmounted(() => {
+  observer?.disconnect()
 })
 </script>
 
