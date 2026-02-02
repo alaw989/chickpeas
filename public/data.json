@@ -2,7 +2,7 @@
   "restaurant": {
     "name": "Chickpeas Mediterranean Grill",
     "address": "850 Blackburn Dr, Mobile AL 36608-9443, United States",
-    "online_ordering_hours": "7:00 AM - 5:40 PM",
+    "online_ordering_hours": "6:00 AM - 6:00 PM (Tue-Thu), 6:00 AM - 8:00 PM (Fri-Sat), 6:00 AM - 4:00 PM (Sun)",
     "estimated_pickup": "18 min"
   },
   "external_urls": {

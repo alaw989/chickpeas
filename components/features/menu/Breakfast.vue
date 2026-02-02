@@ -39,9 +39,8 @@ export default defineComponent({
       const data = await res.json()
 
       // Load breakfast array, add placeholder images if needed
-      this.breakfastItems = data.menu.breakfast.map((item: any) => ({
+      this.breakfastItems = data.menu.breakfast.map((item: MenuItem) => ({
         ...item,
-
       }))
     } catch (err) {
       console.error('Failed to load breakfast menu:', err)

@@ -39,7 +39,7 @@ export default defineComponent({
       const data = await res.json()
 
       // load entrees, add placeholder images
-      this.dinnerItems = data.menu.entrees.map((item: any) => ({
+      this.dinnerItems = data.menu.entrees.map((item: MenuItem) => ({
         ...item,
       }))
     } catch (err) {

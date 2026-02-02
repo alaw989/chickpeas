@@ -1,12 +1,16 @@
 <template>
   <div>
     <section class="flex justify-center w-full">
-      <div
-          class="restaurant-hero relative w-full bg-center bg-cover overflow-hidden"
-          style="background-image: url('/img/banner.webp')"
-          role="img"
-          aria-label="Chickpeas Restaurant"
-      >
+      <div class="restaurant-hero relative w-full overflow-hidden">
+        <img
+          src="/img/banner.webp"
+          alt="Chickpeas Restaurant"
+          class="absolute inset-0 w-full h-full object-cover"
+          width="1920"
+          height="1080"
+          loading="eager"
+          fetchpriority="high"
+        />
         <!-- Gradient overlay -->
         <div class="hero-overlay"></div>
 

@@ -91,9 +91,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import axios from 'axios'
-import { defineComponent } from 'vue'
+
+const config = useRuntimeConfig()
+const endpoint = config.public.formSpreeEndpoint
 
 type FormState = {
   firstName: string
@@ -104,116 +106,107 @@ type FormState = {
   website: string // honeypot
 }
 
-export default defineComponent({
-  name: 'ContactForm',
-  props: {
-    endpoint: {
-      type: String,
-      default: 'https://formspree.io/f/xrblrpla'
-    }
-  },
-  data() {
-    return {
-      form: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        subject: '',
-        message: '',
-        website: ''
-      } as FormState,
-      loading: false as boolean,
-      ok: false as boolean,
-      err: null as string | null
-    }
-  },
-  methods: {
-    notifySuccess(msg: string) {
-      // $toast comes from plugins/toastification.client.ts; cast to avoid TS complaints
-      ;(this as any).$toast?.success?.(msg)
-    },
-    notifyError(msg: string) {
-      ;(this as any).$toast?.error?.(msg)
-    },
-
-    validateForm(): boolean {
-      if (!this.form.firstName.trim()) {
-        this.notifyError('First name is required.')
-        return false
-      }
-      if (!this.form.lastName.trim()) {
-        this.notifyError('Last name is required.')
-        return false
-      }
-      if (!this.form.email.trim()) {
-        this.notifyError('Email is required.')
-        return false
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (!emailRegex.test(this.form.email)) {
-        this.notifyError('Please enter a valid email address.')
-        return false
-      }
-      if (!this.form.subject.trim()) {
-        this.notifyError('Subject is required.')
-        return false
-      }
-      if (!this.form.message.trim()) {
-        this.notifyError('Message is required.')
-        return false
-      }
-      return true
-    },
-
-    async submit() {
-      // simple bot trap
-      if (this.form.website) return
-
-      if (!this.validateForm()) return
-
-      this.loading = true
-      this.ok = false
-      this.err = null
-
-      try {
-        const payload = {
-          firstName: this.form.firstName,
-          lastName: this.form.lastName,
-          email: this.form.email,
-          subject: this.form.subject,
-          message: this.form.message,
-          _subject: `Contact: ${this.form.subject || 'New message'}`,
-          _honeypot: this.form.website
-        }
-
-        await axios.post(this.endpoint, payload, {
-          headers: { Accept: 'application/json' }
-        })
-
-        this.ok = true
-        this.notifySuccess("Thanks! We'll be in touch.")
-
-        // reset
-        this.form.firstName = ''
-        this.form.lastName = ''
-        this.form.email = ''
-        this.form.subject = ''
-        this.form.message = ''
-      } catch (error: any) {
-        let errMsg = 'Something went wrong.'
-        if (error?.response?.data?.errors?.[0]?.message) {
-          errMsg = error.response.data.errors[0].message
-        } else if (error?.message) {
-          errMsg = error.message
-        }
-        this.err = errMsg
-        this.notifyError(errMsg)
-      } finally {
-        this.loading = false
-      }
-    }
-  }
+const form = reactive<FormState>({
+  firstName: '',
+  lastName: '',
+  email: '',
+  subject: '',
+  message: '',
+  website: ''
 })
+
+const loading = ref(false)
+const ok = ref(false)
+const err = ref<string | null>(null)
+
+// Get toast plugin via $toast
+const { $toast } = useNuxtApp()
+
+function notifySuccess(msg: string) {
+  $toast?.success?.(msg)
+}
+
+function notifyError(msg: string) {
+  $toast?.error?.(msg)
+}
+
+function validateForm(): boolean {
+  if (!form.firstName.trim()) {
+    notifyError('First name is required.')
+    return false
+  }
+  if (!form.lastName.trim()) {
+    notifyError('Last name is required.')
+    return false
+  }
+  if (!form.email.trim()) {
+    notifyError('Email is required.')
+    return false
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(form.email)) {
+    notifyError('Please enter a valid email address.')
+    return false
+  }
+  if (!form.subject.trim()) {
+    notifyError('Subject is required.')
+    return false
+  }
+  if (!form.message.trim()) {
+    notifyError('Message is required.')
+    return false
+  }
+  return true
+}
+
+async function submit() {
+  // simple bot trap
+  if (form.website) return
+
+  if (!validateForm()) return
+
+  loading.value = true
+  ok.value = false
+  err.value = null
+
+  try {
+    const payload = {
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      subject: form.subject,
+      message: form.message,
+      _subject: `Contact: ${form.subject || 'New message'}`,
+      _honeypot: form.website
+    }
+
+    await axios.post(endpoint, payload, {
+      headers: { Accept: 'application/json' }
+    })
+
+    ok.value = true
+    notifySuccess("Thanks! We'll be in touch.")
+
+    // reset
+    form.firstName = ''
+    form.lastName = ''
+    form.email = ''
+    form.subject = ''
+    form.message = ''
+  } catch (error: unknown) {
+    let errMsg = 'Something went wrong.'
+    const axiosError = error as { response?: { data?: { errors?: Array<{ message: string }> } }; message?: string }
+    if (axiosError?.response?.data?.errors?.[0]?.message) {
+      errMsg = axiosError.response.data.errors[0].message
+    } else if (axiosError?.message) {
+      errMsg = axiosError.message
+    }
+    err.value = errMsg
+    notifyError(errMsg)
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <style scoped>

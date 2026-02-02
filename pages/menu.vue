@@ -46,8 +46,22 @@ const breadcrumbSchema = {
 const menuSchema = computed(() => {
   if (!menuData.value?.length) return null
 
-  const menuItems = menuData.value.map((item: any) => {
-    const menuItem: Record<string, any> = {
+  interface MenuItemSchema {
+    '@type': string
+    name: string
+    description?: string
+    offers?: {
+      '@type': string
+      price?: number
+      priceCurrency: string
+      lowPrice?: number
+      highPrice?: number
+    }
+    image?: string
+  }
+
+  const menuItems = menuData.value.map((item) => {
+    const menuItem: MenuItemSchema = {
       '@type': 'MenuItem',
       name: item.menu_item_title || item.title?.rendered || ''
     }

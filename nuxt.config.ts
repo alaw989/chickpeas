@@ -20,9 +20,21 @@ export default defineNuxtConfig({
         cuisine: 'Mediterranean, Lebanese',
         priceRange: '$$',
         imageUrl: '/img/banner.webp',
-        logoUrl: '/img/chickpeas.webp',
+        logoUrl: '/img/chickpea-icon.webp',
+        socialUrls: {
+          facebook: 'https://www.facebook.com/chickpeasmediterranean',
+        },
       },
-      openingHours: ['Mo-Sa 07:00-17:00'],
+      // Restaurant hours: Tue-Thu 6AM-6PM, Fri-Sat 6AM-8PM, Sun 6AM-4PM, Mon Closed
+      openingHours: [
+        'Tu 06:00-18:00',
+        'We 06:00-18:00',
+        'Th 06:00-18:00',
+        'Fr 06:00-20:00',
+        'Sa 06:00-20:00',
+        'Su 06:00-16:00'
+      ],
+      formSpreeEndpoint: 'https://formspree.io/f/xrblrpla',
     },
   },
 
@@ -30,6 +42,7 @@ export default defineNuxtConfig({
     '~/assets/css/main.css',
     '~/assets/css/tailwind.css',
     '~/assets/css/fonts.css',
+    'leaflet/dist/leaflet.css',
   ],
 
   app: {
@@ -91,6 +104,5 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/scripts',
-    '@nuxt/ui'
   ]
 })

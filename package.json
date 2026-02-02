@@ -20,7 +20,6 @@
     "@nuxt/icon": "^1.12.0",
     "@nuxt/image": "^1.10.0",
     "@nuxt/scripts": "^0.11.5",
-    "@nuxt/ui": "^3.0.2",
     "@tailwindcss/vite": "^4.1.8",
     "@unhead/vue": "^2.0.5",
     "axios": "^1.11.0",

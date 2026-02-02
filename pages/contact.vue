@@ -1,5 +1,5 @@
 <template>
-  <section class="py-10">
+  <section>
     <Contact />
   </section>
 </template>

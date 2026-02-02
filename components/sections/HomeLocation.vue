@@ -59,15 +59,13 @@
 
         <div class="location-card map-card">
           <div class="map-shell">
-            <div
-              ref="mapRef"
-              class="map-canvas"
-              aria-label="Map showing Chickpea's Restaurant location"
-            ></div>
-            <div class="map-badge">
-              <span>Open today</span>
-              <span class="badge-hours">6AM-6PM</span>
-            </div>
+            <ClientOnly>
+              <MapDisplay />
+              <div v-if="todayStatus" class="map-badge" :class="{ 'badge-closed': todayStatus.closed }">
+                <span>{{ todayStatus.label }}</span>
+                <span v-if="todayStatus.hours" class="badge-hours">{{ todayStatus.hours }}</span>
+              </div>
+            </ClientOnly>
           </div>
         </div>
       </div>
@@ -75,50 +73,29 @@
   </section>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import 'leaflet/dist/leaflet.css'
+<script setup>
+import MapDisplay from './MapDisplay.vue'
+import { computed } from 'vue'
 
-const mapRef = ref<HTMLElement | null>(null)
+// Monday=0, Tuesday=1, ..., Sunday=6
+const today = new Date().getDay()
 
-onMounted(async () => {
-  if (!mapRef.value || typeof window === 'undefined') return
-
-  const { default: L } = await import('leaflet')
-
-  const map = L.map(mapRef.value, {
-    dragging: false,
-    touchZoom: false,
-    scrollWheelZoom: false,
-    doubleClickZoom: false,
-    boxZoom: false,
-    keyboard: false,
-    zoomControl: false,
-  }).setView([30.6723471, -88.2623823], 16)
-
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    subdomains: 'abcd',
-    attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OSM',
-  }).addTo(map)
-
-  const chickpeaMarker = L.divIcon({
-    className: 'chickpea-marker',
-    html: `
-      <div class="chickpea-marker__wrap">
-        <div class="chickpea-marker__label">Fresh flavors live here!</div>
-        <img class="chickpea-marker__icon" src="/img/chickpea-icon.webp" alt="" width="48" height="48" />
-      </div>
-    `,
-    iconSize: [140, 90],
-    iconAnchor: [70, 84],
-    popupAnchor: [0, -90]
-  })
-
-  L.marker([30.6723471, -88.2623823], { icon: chickpeaMarker })
-    .addTo(map)
-    .bindPopup("Hello from Chickpea's!")
-
-  setTimeout(() => map.invalidateSize(), 0)
+const todayStatus = computed(() => {
+  switch (today) {
+    case 0: // Sunday
+      return { label: 'Open today', hours: '6AM-4PM', closed: false }
+    case 1: // Monday
+      return { label: 'Closed today', hours: '', closed: true }
+    case 2: // Tuesday
+    case 3: // Wednesday
+    case 4: // Thursday
+      return { label: 'Open today', hours: '6AM-6PM', closed: false }
+    case 5: // Friday
+    case 6: // Saturday
+      return { label: 'Open today', hours: '6AM-8PM', closed: false }
+    default:
+      return { label: 'Open today', hours: '6AM-6PM', closed: false }
+  }
 })
 </script>
 
@@ -285,6 +262,7 @@ onMounted(async () => {
   position: absolute;
   left: 20px;
   bottom: 20px;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -293,6 +271,12 @@ onMounted(async () => {
   color: #e6fbcc;
   border-radius: 14px;
   font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.map-badge.badge-closed {
+  background: rgba(153, 27, 27, 0.92);
+  color: #fff;
 }
 
 .badge-hours {

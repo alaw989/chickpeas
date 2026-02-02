@@ -25,3 +25,8 @@ logs
 
 # Claude Code
 .claude/
+claude_code_zai_env.sh
+SHARED_TASK_NOTES.md
+
+# Test reports
+playwright-report/

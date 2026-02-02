@@ -17,8 +17,10 @@
         </div>
 
         <button
+            ref="hamburgerButton"
             @click="toggleNav"
-            aria-label="Open menu"
+            :aria-label="showMenu ? 'Close menu' : 'Open menu'"
+            :aria-expanded="showMenu"
             class="md:hidden hover:text-gray-300 focus:outline-none cursor-pointer flex-1 max-w-[60px] w-[60px] absolute hamburger right-0"
         >
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +30,14 @@
             <path d="M4 6L20 6" stroke="#000" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </button>
+
+        <!-- Mobile Menu Backdrop -->
+        <div
+            v-if="showMenu"
+            @click="closeMenu"
+            class="md:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+            aria-hidden="true"
+        ></div>
 
         <!-- Mobile Menu -->
         <nav
@@ -144,6 +154,7 @@ import siteDataJson from '~/public/data.json'
 const route = useRoute()
 
 const showMenu = ref(false)
+const hamburgerButton = shallowRef(null)
 
 const routePath = computed(() => route?.path || '/')
 
@@ -162,7 +173,29 @@ function toggleNav() {
 
 function closeMenu() {
   showMenu.value = false
+  // Return focus to hamburger button when menu closes
+  nextTick(() => {
+    hamburgerButton.value?.focus()
+  })
 }
+
+// Scroll lock when mobile menu is open
+watch(showMenu, (isOpen) => {
+  if (import.meta.client) {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+  }
+})
+
+// Clean up on unmount
+onUnmounted(() => {
+  if (import.meta.client) {
+    document.body.style.overflow = ''
+  }
+})
 </script>
 
 <style scoped>
