@@ -44,6 +44,13 @@ export default defineNuxtConfig({
         { rel: 'dns-prefetch', href: 'https://basemaps.cartocdn.com' },
         { rel: 'preconnect', href: 'https://basemaps.cartocdn.com', crossorigin: '' },
         // Font preloading handled by @nuxt/fonts module
+      ],
+      script: [
+        {
+          defer: true,
+          src: 'https://plausible.io/js/script.js',
+          'data-domain': 'chickpeas-mobile.com'
+        }
       ]
     }
   },

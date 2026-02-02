@@ -135,15 +135,19 @@ ul.footer a {
   text-decoration: none;
 }
 
-/* Button styling - override anchor color */
+/* Button styling - override for footer context */
 ul.footer a.button-light {
   color: #3f6e4d;
   text-decoration: none;
+  background: #e6fbcc;
+  border-color: #e6fbcc;
 }
 
 ul.footer a.button-light:hover {
   color: #e6fbcc;
   text-decoration: none;
+  background: transparent;
+  border-color: #e6fbcc;
 }
 
 @media (min-width: 768px) {

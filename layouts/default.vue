@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto">
     <NuxtRouteAnnouncer />
-    <NavBar :jsonData="siteData" />
+    <NavBar />
     <main>
       <slot />
     </main>
@@ -12,6 +12,4 @@
 <script setup lang="ts">
 import NavBar from '~/components/features/navigation/NavBar.vue'
 import Footer from '~/components/features/footer/Footer.vue'
-
-const { data: siteData } = await useSiteData()
 </script>

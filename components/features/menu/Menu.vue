@@ -7,21 +7,45 @@
         <p class="font-ptsans text-base md:text-lg text-gray-600 max-w-xl mx-auto mb-6">
           Fresh Mediterranean flavors made from scratch daily
         </p>
-        <ul class="flex justify-center menu-header flex-wrap">
-          <li v-for="category in menuCategories" :key="category.key" :class="{ active: selectedTab === category.key }"
-            @click="selectedTab = category.key">
-            {{ category.label }}
+        <ul class="flex justify-center menu-header flex-wrap" role="tablist" aria-label="Menu categories">
+          <li v-for="category in menuCategories" :key="category.key" role="presentation">
+            <button
+              role="tab"
+              :id="`tab-${category.dataKey}`"
+              :aria-selected="selectedTab === category.key"
+              :aria-controls="`panel-${category.dataKey}`"
+              :tabindex="selectedTab === category.key ? 0 : -1"
+              :class="{ active: selectedTab === category.key }"
+              @click="selectedTab = category.key"
+              @keydown="handleTabKeydown($event, category)"
+            >
+              {{ category.label }}
+            </button>
           </li>
         </ul>
       </div>
 
-      <div v-if="isLoading" class="py-10 text-center font-grotesk text-xl">
-        Loading menu…
+      <div v-if="isLoading" class="menu-skeleton">
+        <div v-for="i in 4" :key="`skeleton-${i}`" class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-line title"></div>
+            <div class="skeleton-line description"></div>
+            <div class="skeleton-line description short"></div>
+          </div>
+        </div>
       </div>
       <p v-else-if="loadError" class="py-6 text-center text-red-600">
         {{ loadError }}
       </p>
-      <div v-else class="menu-items-wrapper" :style="{ minHeight: menuItemsHeight ? `${menuItemsHeight}px` : null }">
+      <div
+        v-else
+        class="menu-items-wrapper"
+        :style="{ minHeight: menuItemsHeight ? `${menuItemsHeight}px` : null }"
+        role="tabpanel"
+        :id="`panel-${currentCategoryDataKey}`"
+        :aria-labelledby="`tab-${currentCategoryDataKey}`"
+      >
         <transition name="switch" mode="out-in">
           <template v-if="currentMenuItems.length">
             <ul :key="selectedTab" ref="menuContent" class="flex flex-wrap menu-items">
@@ -140,6 +164,10 @@ export default {
           price_large: item.price_large || null,
           image: item.image || null
         }))
+    },
+    currentCategoryDataKey() {
+      const current = this.menuCategories.find(c => c.key === this.selectedTab)
+      return current?.dataKey || ''
     }
   },
   watch: {
@@ -167,6 +195,33 @@ export default {
         const content = this.$refs.menuContent
         this.menuItemsHeight = content ? content.offsetHeight : this.menuItemsHeight
       })
+    },
+    handleTabKeydown(event, category) {
+      const categories = this.menuCategories
+      const currentIndex = categories.findIndex(c => c.key === category.key)
+      let newIndex = currentIndex
+
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+        event.preventDefault()
+        newIndex = (currentIndex + 1) % categories.length
+      } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        event.preventDefault()
+        newIndex = (currentIndex - 1 + categories.length) % categories.length
+      } else if (event.key === 'Home') {
+        event.preventDefault()
+        newIndex = 0
+      } else if (event.key === 'End') {
+        event.preventDefault()
+        newIndex = categories.length - 1
+      } else {
+        return
+      }
+
+      this.selectedTab = categories[newIndex].key
+      this.$nextTick(() => {
+        const newTabId = `tab-${categories[newIndex].dataKey}`
+        document.getElementById(newTabId)?.focus()
+      })
     }
   }
 }
@@ -186,6 +241,9 @@ export default {
 
 .menu-header li {
   list-style-type: none;
+}
+
+.menu-header button {
   cursor: pointer;
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
@@ -194,30 +252,37 @@ export default {
   color: #666;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
+  background: transparent;
+  border: none;
 }
 
 @media (min-width: 640px) {
-  .menu-header li {
+  .menu-header button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .menu-header li {
+  .menu-header button {
     font-size: 1.125rem;
   }
 }
 
-.menu-header li:hover {
+.menu-header button:hover {
   color: #3f6e4d;
   background: rgba(63, 110, 77, 0.08);
 }
 
-.menu-header li.active {
+.menu-header button.active {
   color: #3f6e4d;
   font-weight: 700;
   background: rgba(63, 110, 77, 0.1);
+}
+
+.menu-header button:focus-visible {
+  outline: 2px solid #3f6e4d;
+  outline-offset: 2px;
 }
 
 /* Menu Lists styling */
@@ -371,5 +436,97 @@ export default {
 
 .switch-leave-active {
   transition: all 0.2s ease;
+}
+
+/* Skeleton loading states */
+.menu-skeleton {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .menu-skeleton {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 640px) {
+  .skeleton-card {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+}
+
+.skeleton-image {
+  width: 100%;
+  max-width: 200px;
+  height: 150px;
+  background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .skeleton-image {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .skeleton-image {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.skeleton-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-line {
+  height: 1rem;
+  background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-line.title {
+  width: 70%;
+  height: 1.25rem;
+}
+
+.skeleton-line.description {
+  width: 100%;
+}
+
+.skeleton-line.description.short {
+  width: 60%;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 </style>

@@ -8,6 +8,8 @@
             <img
                 src="/img/chickpeas.webp"
                 alt="Chickpea's Restaurant logo"
+                width="300"
+                height="100"
                 class="cursor-pointer"
                 :class="{ 'opacity-80': routePath !== '/' }"
             />
@@ -45,7 +47,8 @@
                 :key="item.key"
                 class="list-none"
             >
-              <template v-if="item.url">
+              <!-- External link (has url property with actual value) -->
+              <template v-if="item.url && item.url.length > 0">
                 <a
                     :href="item.url"
                     target="_blank"
@@ -57,7 +60,8 @@
                   {{ item.label }}
                 </a>
               </template>
-              <template v-else>
+              <!-- Internal link (has to property) -->
+              <template v-else-if="item.to">
                 <NuxtLink
                     :to="item.to"
                     class="mobile-nav-link"
@@ -69,6 +73,15 @@
                 >
                   {{ item.label }}
                 </NuxtLink>
+              </template>
+              <!-- Pending external link (url property exists but empty - waiting for API) -->
+              <template v-else>
+                <span
+                    class="mobile-nav-link mobile-nav-disabled"
+                    aria-disabled="true"
+                >
+                  {{ item.label }}
+                </span>
               </template>
             </li>
           </ul>
@@ -82,7 +95,8 @@
                 :key="item.key"
                 class="list-none"
             >
-              <template v-if="item.url">
+              <!-- External link (has url property with actual value) -->
+              <template v-if="item.url && item.url.length > 0">
                 <a
                     :href="item.url"
                     target="_blank"
@@ -93,7 +107,8 @@
                   {{ item.label }}
                 </a>
               </template>
-              <template v-else>
+              <!-- Internal link (has to property) -->
+              <template v-else-if="item.to">
                 <NuxtLink
                     :to="item.to"
                     class="nav-link"
@@ -105,6 +120,15 @@
                   {{ item.label }}
                 </NuxtLink>
               </template>
+              <!-- Pending external link (url property exists but empty - waiting for API) -->
+              <template v-else>
+                <span
+                    class="nav-link nav-link-disabled"
+                    aria-disabled="true"
+                >
+                  {{ item.label }}
+                </span>
+              </template>
             </li>
           </ul>
         </nav>
@@ -114,50 +138,30 @@
 </template>
 
 
-<script>
-export default {
-  props: {
-    jsonData: {
-      type: Object,
-      default: () => null,
-    },
-  },
-  data() {
-    return {
-      showMenu: false,
-      menuItems: [
-        { key: 'menu', label: 'View Our Menu', prefix: '1', to: '/menu' },
-        { key: 'takeout', label: 'Order Takeout', prefix: '2', url: '' },
-        { key: 'delivery', label: 'Order Delivery', prefix: '3', url: '' },
-        { key: 'contact', label: 'Contact Us', prefix: '4', to: '/contact' }
-      ],
-    }
-  },
-  computed: {
-    routePath() {
-      return this.$route?.path || '/'
-    }
-  },
-  watch: {
-    jsonData(newVal) {
-      if (newVal?.external_urls?.doordash?.url) {
-        this.menuItems = this.menuItems.map(item => {
-          if (item.key === 'takeout' || item.key === 'delivery') {
-            return { ...item, url: newVal.external_urls.doordash.url }
-          }
-          return item
-        })
-      }
-    }
-  },
-  methods: {
-    toggleNav() {
-      this.showMenu = !this.showMenu
-    },
-    closeMenu() {
-      this.showMenu = false
-    }
-  },
+<script setup>
+import siteDataJson from '~/public/data.json'
+
+const route = useRoute()
+
+const showMenu = ref(false)
+
+const routePath = computed(() => route?.path || '/')
+
+const doordashUrl = siteDataJson?.external_urls?.doordash?.url || ''
+
+const menuItems = [
+  { key: 'menu', label: 'View Our Menu', prefix: '1', to: '/menu' },
+  { key: 'takeout', label: 'Order Takeout', prefix: '2', url: doordashUrl },
+  { key: 'delivery', label: 'Order Delivery', prefix: '3', url: doordashUrl },
+  { key: 'contact', label: 'Contact Us', prefix: '4', to: '/contact' }
+]
+
+function toggleNav() {
+  showMenu.value = !showMenu.value
+}
+
+function closeMenu() {
+  showMenu.value = false
 }
 </script>
 
@@ -259,6 +263,16 @@ export default {
 .mobile-nav-cta:hover {
   background: #365f42;
   color: #e6fbcc;
+}
+
+.mobile-nav-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav-link-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .menu {

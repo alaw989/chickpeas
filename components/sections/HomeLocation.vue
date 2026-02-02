@@ -106,7 +106,7 @@ onMounted(async () => {
     html: `
       <div class="chickpea-marker__wrap">
         <div class="chickpea-marker__label">Fresh flavors live here!</div>
-        <img class="chickpea-marker__icon" src="/img/chickpea-icon.webp" alt="" />
+        <img class="chickpea-marker__icon" src="/img/chickpea-icon.webp" alt="" width="48" height="48" />
       </div>
     `,
     iconSize: [140, 90],
