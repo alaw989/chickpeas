@@ -17,8 +17,24 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
+            # Ensure PM2 is installed globally
+            npm install -g pm2
+
+            # Add swap if not exists (prevents OOM on 1GB droplet)
+            if ! swapon --show | grep -q .; then
+              fallocate -l 2G /swapfile || dd if=/dev/zero of=/swapfile bs=1M count=2048
+              chmod 600 /swapfile
+              mkswap /swapfile
+              swapon /swapfile
+            fi
+
             cd /var/www/chickpeas
             git pull origin main
             npm ci
+
+            # Build with increased heap size
+            export NODE_OPTIONS="--max-old-space-size=1024"
             npm run build
-            pm2 restart chickpeas
+
+            # Start or restart PM2
+            pm2 restart chickpeas || pm2 start .output/server/index.mjs --name chickpeas
