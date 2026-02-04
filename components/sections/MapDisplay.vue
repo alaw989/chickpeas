@@ -4,15 +4,16 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
-import 'leaflet/dist/leaflet.css'
 
 const mapRef = ref(null)
 let mapInstance = null
 
 onMounted(async () => {
-  if (!mapRef.value || !import.meta.client) return
+  if (!mapRef.value || !process.client) return
 
   try {
+    // Dynamically import Leaflet CSS to avoid render-blocking
+    await import('leaflet/dist/leaflet.css')
     const L = (await import('leaflet')).default
 
     mapInstance = L.map(mapRef.value, {

@@ -23,6 +23,7 @@
     "@tailwindcss/vite": "^4.1.8",
     "@unhead/vue": "^2.0.5",
     "axios": "^1.11.0",
+    "better-sqlite3": "^12.6.2",
     "eslint": "^9.24.0",
     "leaflet": "^1.9.4",
     "nuxt": "^3.16.2",

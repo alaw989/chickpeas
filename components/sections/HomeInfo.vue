@@ -25,15 +25,26 @@
         </svg>
       </div>
 
-      <img
+      <NuxtImg
           src="/img/basil.webp"
           class="absolute image left-[35%] transform -translate-x-1/2 pointer-events-none"
-          alt="chickpeas-plate"/>
+          alt="chickpeas-plate"
+          width="800"
+          height="800"
+          loading="lazy"
+          format="webp"
+          quality="70"
+      />
     </div>
-    <img
+    <NuxtImg
         src="/img/mediterranean-plate.webp"
         alt="mediterranean-plate"
         class="absolute image2 left-[35%] transform -translate-x-1/2 chickpeas-plate"
+        width="400"
+        height="400"
+        loading="lazy"
+        format="webp"
+        quality="70"
     />
     <section class="info-wrapper w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8">
       <div class="info-container flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 lg:gap-12">
@@ -65,10 +76,17 @@
         </div>
 
         <div class="flex flex-col right-container w-full lg:w-1/2">
-          <div class="w-full h-full bg-cover bg-center max-h-[400px] chickpeas-bg rounded-2xl mb-14 shadow-lg"
-               style="background-image: url('/img/chickpeas-restaurant.webp')"
-               role="img"
-               aria-label="Delicious plate 1">
+          <div class="w-full max-h-[400px] chickpeas-bg rounded-2xl mb-14 shadow-lg overflow-hidden">
+            <NuxtImg
+              src="/img/chickpeas-restaurant.webp"
+              alt="Delicious plate 1"
+              class="w-full h-full object-cover"
+              width="800"
+              height="400"
+              loading="lazy"
+              format="webp"
+              quality="70"
+            />
           </div>
 
           <div class="bg-white rounded-2xl w-full shadow-lg p-8 md:p-10">
@@ -168,13 +186,12 @@
 
 
 .chickpeas-bg {
-  display: none;
+  display: block;
 }
 
 @media (min-width: 1024px) {
   .chickpeas-bg {
     height: 400px;
-    display: block;
   }
 }
 

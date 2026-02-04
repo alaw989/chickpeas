@@ -5,13 +5,17 @@
 
         <div class="flex flex-1 items-center logo">
           <NuxtLink to="/" class="block">
-            <img
+            <NuxtImg
                 src="/img/chickpeas.webp"
                 alt="Chickpea's Restaurant logo"
                 width="300"
                 height="100"
                 class="cursor-pointer"
                 :class="{ 'opacity-80': routePath !== '/' }"
+                loading="eager"
+                format="webp"
+                quality="70"
+                :sizes="'250px md:300px'"
             />
           </NuxtLink>
         </div>
@@ -181,7 +185,7 @@ function closeMenu() {
 
 // Scroll lock when mobile menu is open
 watch(showMenu, (isOpen) => {
-  if (import.meta.client) {
+  if (process.client) {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -192,7 +196,7 @@ watch(showMenu, (isOpen) => {
 
 // Clean up on unmount
 onUnmounted(() => {
-  if (import.meta.client) {
+  if (process.client) {
     document.body.style.overflow = ''
   }
 })

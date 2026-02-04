@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import Menu from '~/components/features/menu/Menu.vue'
+const Menu = defineAsyncComponent(() => import('~/components/features/menu/Menu.vue'))
 
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl

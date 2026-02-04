@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import Home from '~/components/sections/HomePage.vue'
+const Home = defineAsyncComponent(() => import('~/components/sections/HomePage.vue'))
 
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl
