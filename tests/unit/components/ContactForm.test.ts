@@ -1,10 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mountSuspended, mount } from '@nuxt/test-utils/runtime'
 import ContactForm from '~/components/sections/ContactForm.vue'
-import axios from 'axios'
 
-vi.mock('axios')
-const mockedAxios = vi.mocked(axios)
+// Mock global fetch
+global.fetch = vi.fn() as unknown as typeof fetch
 
 describe('ContactForm.vue', () => {
   beforeEach(() => {
@@ -53,7 +52,7 @@ describe('ContactForm.vue', () => {
       await wrapper.vm.$nextTick()
 
       // Form should not submit if validation fails
-      expect(mockedAxios.post).not.toHaveBeenCalled()
+      expect(fetch).not.toHaveBeenCalled()
     })
 
     it('requires last name - does not submit API call', async () => {
@@ -67,7 +66,7 @@ describe('ContactForm.vue', () => {
       await wrapper.find('form').trigger('submit')
       await wrapper.vm.$nextTick()
 
-      expect(mockedAxios.post).not.toHaveBeenCalled()
+      expect(fetch).not.toHaveBeenCalled()
     })
 
     it('requires valid email format - does not submit API call', async () => {
@@ -82,7 +81,7 @@ describe('ContactForm.vue', () => {
       await wrapper.find('form').trigger('submit')
       await wrapper.vm.$nextTick()
 
-      expect(mockedAxios.post).not.toHaveBeenCalled()
+      expect(fetch).not.toHaveBeenCalled()
     })
 
     it('requires subject - does not submit API call', async () => {
@@ -96,7 +95,7 @@ describe('ContactForm.vue', () => {
       await wrapper.find('form').trigger('submit')
       await wrapper.vm.$nextTick()
 
-      expect(mockedAxios.post).not.toHaveBeenCalled()
+      expect(fetch).not.toHaveBeenCalled()
     })
 
     it('requires message - does not submit API call', async () => {
@@ -110,12 +109,15 @@ describe('ContactForm.vue', () => {
       await wrapper.find('form').trigger('submit')
       await wrapper.vm.$nextTick()
 
-      expect(mockedAxios.post).not.toHaveBeenCalled()
+      expect(fetch).not.toHaveBeenCalled()
     })
 
     it('submits successfully with valid data', async () => {
       const wrapper = await mountSuspended(ContactForm)
-      mockedAxios.post.mockResolvedValue({ data: {} })
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: async () => ({})
+      } as Response)
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')
@@ -125,14 +127,17 @@ describe('ContactForm.vue', () => {
 
       await wrapper.find('form').trigger('submit')
 
-      expect(mockedAxios.post).toHaveBeenCalled()
+      expect(fetch).toHaveBeenCalled()
     })
   })
 
   describe('submit handler', () => {
     it('calls endpoint with correct data on valid submit', async () => {
       const wrapper = await mountSuspended(ContactForm)
-      mockedAxios.post.mockResolvedValue({ data: {} })
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: async () => ({})
+      } as Response)
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')
@@ -142,24 +147,33 @@ describe('ContactForm.vue', () => {
 
       await wrapper.find('form').trigger('submit')
 
-      expect(mockedAxios.post).toHaveBeenCalledWith(
+      expect(fetch).toHaveBeenCalledWith(
         'https://formspree.io/f/xrblrpla',
-        {
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john@example.com',
-          subject: 'Test Subject',
-          message: 'Test message',
-          _subject: 'Contact: Test Subject',
-          _honeypot: ''
-        },
-        { headers: { Accept: 'application/json' } }
+        expect.objectContaining({
+          method: 'POST',
+          headers: expect.objectContaining({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }),
+          body: JSON.stringify({
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john@example.com',
+            subject: 'Test Subject',
+            message: 'Test message',
+            _subject: 'Contact: Test Subject',
+            _honeypot: ''
+          })
+        })
       )
     })
 
     it('uses endpoint from runtime config', async () => {
       const wrapper = await mountSuspended(ContactForm)
-      mockedAxios.post.mockResolvedValue({ data: {} })
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: async () => ({})
+      } as Response)
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')
@@ -169,24 +183,18 @@ describe('ContactForm.vue', () => {
 
       await wrapper.find('form').trigger('submit')
 
-      expect(mockedAxios.post).toHaveBeenCalledWith(
+      expect(fetch).toHaveBeenCalledWith(
         'https://formspree.io/f/xrblrpla',
-        expect.objectContaining({
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john@example.com',
-          subject: 'Test',
-          message: 'Hello',
-          _subject: 'Contact: Test',
-          _honeypot: ''
-        }),
-        { headers: { Accept: 'application/json' } }
+        expect.any(Object)
       )
     })
 
     it('resets form after successful submit', async () => {
       const wrapper = await mountSuspended(ContactForm)
-      mockedAxios.post.mockResolvedValue({ data: {} })
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: async () => ({})
+      } as Response)
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')
@@ -217,7 +225,7 @@ describe('ContactForm.vue', () => {
 
       await wrapper.find('form').trigger('submit')
 
-      expect(mockedAxios.post).not.toHaveBeenCalled()
+      expect(fetch).not.toHaveBeenCalled()
     })
   })
 
@@ -227,10 +235,13 @@ describe('ContactForm.vue', () => {
 
       // Create a promise we control
       let resolvePromise: () => void
-      const promise = new Promise<{ data: {} }>((resolve) => {
-        resolvePromise = () => resolve({ data: {} })
+      const promise = new Promise<Response>((resolve) => {
+        resolvePromise = () => resolve({
+          ok: true,
+          json: async () => ({})
+        } as Response)
       })
-      mockedAxios.post.mockReturnValue(promise)
+      vi.mocked(fetch).mockReturnValue(promise)
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')
@@ -256,10 +267,13 @@ describe('ContactForm.vue', () => {
       const wrapper = await mountSuspended(ContactForm)
 
       let resolvePromise: () => void
-      const promise = new Promise<{ data: {} }>((resolve) => {
-        resolvePromise = () => resolve({ data: {} })
+      const promise = new Promise<Response>((resolve) => {
+        resolvePromise = () => resolve({
+          ok: true,
+          json: async () => ({})
+        } as Response)
       })
-      mockedAxios.post.mockReturnValue(promise)
+      vi.mocked(fetch).mockReturnValue(promise)
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')
@@ -283,7 +297,10 @@ describe('ContactForm.vue', () => {
   describe('status messages', () => {
     it('shows success message after successful submit', async () => {
       const wrapper = await mountSuspended(ContactForm)
-      mockedAxios.post.mockResolvedValue({ data: {} })
+      vi.mocked(fetch).mockResolvedValue({
+        ok: true,
+        json: async () => ({})
+      } as Response)
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')
@@ -301,7 +318,7 @@ describe('ContactForm.vue', () => {
 
     it('shows error message on API failure', async () => {
       const wrapper = await mountSuspended(ContactForm)
-      mockedAxios.post.mockRejectedValue(new Error('Network error'))
+      vi.mocked(fetch).mockRejectedValue(new Error('Network error'))
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')
@@ -317,13 +334,12 @@ describe('ContactForm.vue', () => {
 
     it('shows API error message from response', async () => {
       const wrapper = await mountSuspended(ContactForm)
-      mockedAxios.post.mockRejectedValue({
-        response: {
-          data: {
-            errors: [{ message: 'Invalid email address' }]
-          }
-        }
-      })
+      vi.mocked(fetch).mockResolvedValue({
+        ok: false,
+        json: async () => ({
+          errors: [{ message: 'Invalid email address' }]
+        })
+      } as Response)
 
       await wrapper.find('#firstName').setValue('John')
       await wrapper.find('#lastName').setValue('Doe')

@@ -3,7 +3,7 @@
     <div class="w-full justify-center flex flex-col max-w-[1200px]">
       <ul class="footer">
         <li class="mx-0 flex items-center justify-center md:justify-start gap-2">
-          <img src="/img/chickpea-icon.webp" alt="" width="24" height="24" class="chickpea-icon" />
+          <NuxtImg src="/img/chickpea-icon.webp" alt="" width="24" height="24" class="chickpea-icon" loading="lazy" format="webp" quality="70" />
           <span class="font-semibold text-lg">Chickpeas</span>
         </li>
         <li>
@@ -21,10 +21,10 @@
             </li>
             <li class="mb-6">
               <ul class="space-y-1">
-                <li class="text-center md:text-left text-sm">Mon: Closed</li>
-                <li class="text-center md:text-left text-sm">Tues - Thurs: 6AM-6PM</li>
-                <li class="text-center md:text-left text-sm">Fri - Sat: 6AM-8PM</li>
-                <li class="text-center md:text-left text-sm">Sun: 6AM-4PM</li>
+                <li class="text-center md:text-left text-sm !text-white">Mon: Closed</li>
+                <li class="text-center md:text-left text-sm !text-white">Tues - Thurs: 6AM-6PM</li>
+                <li class="text-center md:text-left text-sm !text-white">Fri - Sat: 6AM-8PM</li>
+                <li class="text-center md:text-left text-sm !text-white">Sun: 6AM-4PM</li>
               </ul>
             </li>
             <li class="flex justify-center md:justify-start">
@@ -61,7 +61,7 @@
         </li>
 
         <li class="text-center">
-          <span class="text-sm opacity-80">Follow Us</span>
+          <span class="text-sm font-semibold" style="color: #ffffff;">Follow Us</span>
           <ul class="mt-2 flex justify-center md:justify-start space-x-3" aria-label="Social media links">
             <li v-if="business.socialUrls?.facebook">
               <a
@@ -102,7 +102,7 @@
     </div>
     <div class="flex justify-center mt-10 copyright border-t w-full pt-8 px-4">
       <div class="copyright-text w-full max-w-[1200px]">
-        <p class="text-xs opacity-70">© Chickpeas Mediterranean Kitchen. All rights reserved. Designed and built by Austin Law</p>
+        <p class="text-xs font-medium" style="color: #ffffff;">© Chickpeas Mediterranean Kitchen. All rights reserved. Designed and built by Austin Law</p>
       </div>
     </div>
   </footer>
@@ -138,7 +138,7 @@ ul.footer {
 ul.footer li {
   list-style-type: none;
   letter-spacing: 0.02em;
-  color: #e6fbcc;
+  color: #ffffff;
   text-align: center;
 }
 
@@ -149,7 +149,7 @@ ul.footer > li > ul {
 }
 
 ul.footer a {
-  color: #e6fbcc;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -157,15 +157,15 @@ ul.footer a {
 ul.footer a.button-light {
   color: #3f6e4d;
   text-decoration: none;
-  background: #e6fbcc;
-  border-color: #e6fbcc;
+  background: #ffffff;
+  border-color: #ffffff;
 }
 
 ul.footer a.button-light:hover {
-  color: #e6fbcc;
+  color: #ffffff;
   text-decoration: none;
   background: transparent;
-  border-color: #e6fbcc;
+  border-color: #ffffff;
 }
 
 @media (min-width: 768px) {
@@ -185,9 +185,9 @@ ul.footer a.button-light:hover {
 }
 
 .copyright {
-  color: #e6fbcc;
+  color: #ffffff;
   text-align: center;
-  border-color: rgba(230, 251, 204, 0.15);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .copyright p {

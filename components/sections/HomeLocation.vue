@@ -74,8 +74,10 @@
 </template>
 
 <script setup>
-import MapDisplay from './MapDisplay.vue'
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
+
+// Lazy load map component to reduce initial bundle size
+const MapDisplay = defineAsyncComponent(() => import('./MapDisplay.vue'))
 
 // Monday=0, Tuesday=1, ..., Sunday=6
 const today = new Date().getDay()

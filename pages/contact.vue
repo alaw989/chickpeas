@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import Contact from '~/components/sections/ContactForm.vue'
+const Contact = defineAsyncComponent(() => import('~/components/sections/ContactForm.vue'))
 
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl
