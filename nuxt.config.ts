@@ -12,6 +12,7 @@ export default defineNuxtConfig({
       business: {
         name: 'Chickpeas Mediterranean Kitchen',
         phone: '(251) 301-0770',
+        email: 'info@chickpeas-mobile.com',
         streetAddress: '850 Blackburn Dr',
         addressLocality: 'Mobile',
         addressRegion: 'AL',

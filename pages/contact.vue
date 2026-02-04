@@ -1,11 +1,20 @@
 <template>
-  <section>
-    <Contact />
+  <section class="contact section-padding bg-yellow-50">
+    <div class="section-wrap">
+      <h1 class="heading-lg text-center mb-6">Contact Us</h1>
+      <p class="text-center mb-8">For any inquiries, please complete the form below or reach us directly.</p>
+
+      <div class="contact-grid">
+        <ContactForm />
+        <ContactInfo />
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import Contact from '~/components/sections/ContactForm.vue'
+const ContactForm = defineAsyncComponent(() => import('~/components/sections/ContactForm.vue'))
+const ContactInfo = defineAsyncComponent(() => import('~/components/sections/ContactInfo.vue'))
 
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl
@@ -63,3 +72,17 @@ useHead({
   ]
 })
 </script>
+
+<style scoped>
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
