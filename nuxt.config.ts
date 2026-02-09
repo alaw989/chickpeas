@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
-  runtimeConfig: {
+runtimeConfig: {
     // Server-only config
     wpMenuEndpoint: process.env.WP_MENU_ENDPOINT || 'https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc',
     public: {
@@ -12,6 +12,7 @@ export default defineNuxtConfig({
       business: {
         name: 'Chickpeas Mediterranean Kitchen',
         phone: '(251) 301-0770',
+        email: 'info@chickpeas-mobile.com',
         streetAddress: '850 Blackburn Dr',
         addressLocality: 'Mobile',
         addressRegion: 'AL',
@@ -96,7 +97,7 @@ export default defineNuxtConfig({
     routeRules: {
       // Static pages - aggressive caching
       '/': { prerender: true },
-      '/menu': { prerender: true },
+      '/menu': { isr: 300 },  // Revalidates every 5 minutes
       '/contact': { prerender: true },
       // Static assets - long cache (1 year immutable)
       '/img/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
@@ -134,11 +135,9 @@ export default defineNuxtConfig({
         }
       }
     },
-    // Optimize dependencies
+    // Optimize dependencies - include leaflet for consistent dev/prod behavior
     optimizeDeps: {
-      include: ['vue', 'vue-router'],
-      // Don't pre-bundle leaflet - it's lazy loaded
-      exclude: ['leaflet']
+      include: ['vue', 'vue-router', 'leaflet']
     }
   },
 

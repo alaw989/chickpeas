@@ -1,10 +1,7 @@
 <template>
-  <div class="contact section-padding bg-yellow-50">
-    <div class="contact-form section-wrap">
-      <h1 class="heading-lg text-center">Contact Us</h1>
-      <p class="text-center mb-6">For any inquiries, please complete the form below.</p>
-
-      <form @submit.prevent="submit" novalidate>
+  <div class="contact-form">
+    <h2 class="form-title">Send Us a Message</h2>
+    <form @submit.prevent="submit" novalidate>
         <!-- Honeypot (hidden) -->
         <input
             v-model="form.website"
@@ -84,10 +81,9 @@
         </button>
 
         <!-- Status messages -->
-        <p v-if="ok" class="mt-3" style="color:#166534;">Thanks! We’ll be in touch.</p>
+        <p v-if="ok" class="mt-3" style="color:#166534;">Thanks! We'll be in touch.</p>
         <p v-if="err" class="mt-3" style="color:#991b1b;">{{ err }}</p>
       </form>
-    </div>
   </div>
 </template>
 
@@ -214,7 +210,19 @@ async function submit() {
 
 <style scoped>
 .contact-form {
-  max-width: 600px;
+  width: 100%;
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #3f6e4d;
+  margin-bottom: 1.5rem;
 }
 
 .form-field {
