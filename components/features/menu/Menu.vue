@@ -54,11 +54,12 @@
                 <NuxtImg
                     :src="item.image?.guid || '/img/med-plate-photo-coming-soon.webp'"
                     :alt="item.name ? `${item.name} menu item` : 'Menu item'"
-                    class="app-img rounded-2xl"
+                    class="app-img"
                     loading="lazy"
-                    width="400"
-                    height="300"
-                    sizes="(max-width: 768px) 100vw, 400px"
+                    width="160"
+                    height="160"
+                    fit="cover"
+                    sizes="160px"
                 />
                 <div class="app-text">
                   <h3>

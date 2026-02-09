@@ -14,7 +14,9 @@ onMounted(async () => {
   try {
     // Dynamically import Leaflet CSS to avoid render-blocking
     await import('leaflet/dist/leaflet.css')
-    const L = (await import('leaflet')).default
+    const leafletModule = await import('leaflet')
+    // Handle both dev (namespace) and prod (default export) modes
+    const L = leafletModule.default || leafletModule
 
     mapInstance = L.map(mapRef.value, {
       dragging: false,

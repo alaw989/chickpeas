@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
-  runtimeConfig: {
+runtimeConfig: {
     // Server-only config
     wpMenuEndpoint: process.env.WP_MENU_ENDPOINT || 'https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc',
     public: {
@@ -89,7 +89,7 @@ export default defineNuxtConfig({
     routeRules: {
       // Static pages - aggressive caching
       '/': { prerender: true },
-      '/menu': { prerender: true },
+      '/menu': { isr: 300 },  // Revalidates every 5 minutes
       '/contact': { prerender: true },
       // Static assets - long cache
       '/img/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
@@ -105,5 +105,47 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/scripts',
-  ]
+  ],
+
+  // Build optimizations to reduce unused JavaScript
+  vite: {
+    build: {
+      // Improve CSS handling
+      cssCodeSplit: true,
+      // Optimize chunk size
+      chunkSizeWarningLimit: 500,
+      // Manual chunks to separate vendor code
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Separate leaflet into its own chunk (lazy loaded)
+            'leaflet': ['leaflet'],
+            // Separate Vue core
+            'vue-vendor': ['vue', 'vue-router', '@vue/runtime-core'],
+          }
+        }
+      }
+    },
+    // Optimize dependencies - include leaflet for consistent dev/prod behavior
+    optimizeDeps: {
+      include: ['vue', 'vue-router', 'leaflet']
+    }
+  },
+
+  // Enable lazy loading of components
+  components: {
+    global: true,
+    lazy: true
+  },
+
+  // Lazy load modules where possible
+  _experimental: {
+    asyncNuxtComponents: true
+  },
+
+  // Enable experimental features for better performance
+  experimental: {
+    payloadExtraction: true, // Reduce client bundle size
+    renderJsonPayloads: true, // Faster initial render
+  }
 })
