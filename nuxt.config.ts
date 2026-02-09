@@ -43,36 +43,44 @@ runtimeConfig: {
     '~/assets/css/main.css',
     '~/assets/css/tailwind.css',
     '~/assets/css/fonts.css',
-    'leaflet/dist/leaflet.css',
   ],
 
   app: {
     head: {
       titleTemplate: '%s | Chickpeas Mediterranean Kitchen',
       meta: [
-        { name: 'theme-color', content: '#3f6e4d' }
+        { name: 'theme-color', content: '#3f6e4d' },
+        { name: 'description', content: 'Fresh Mediterranean and Lebanese dishes in Mobile, AL. Breakfast, lunch, dinner, takeout, and delivery.' }
       ],
       link: [
         { rel: 'icon', type: 'image/webp', href: '/img/chickpea-icon.webp' },
-        // DNS prefetch for external resources
-        { rel: 'dns-prefetch', href: 'https://basemaps.cartocdn.com' },
-        { rel: 'preconnect', href: 'https://basemaps.cartocdn.com', crossorigin: '' },
-        // Font preloading handled by @nuxt/fonts module
+        // Preload LCP image for faster discovery
+        { rel: 'preload', as: 'image', href: '/img/banner.webp', fetchpriority: 'high', type: 'image/webp' },
+        // Preload critical fonts
+        { rel: 'preload', as: 'font', href: '/fonts/CabinetGrotesk-Black.woff2', type: 'font/woff2', crossorigin: '' },
+        { rel: 'preload', as: 'font', href: '/fonts/PTSans-Regular.ttf', type: 'font/ttf', crossorigin: '' },
+        // DNS prefetch and preconnect for external resources
+        { rel: 'dns-prefetch', href: 'https://plausible.io' },
+        { rel: 'preconnect', href: 'https://plausible.io', crossorigin: '' },
       ],
       script: [
         {
-          defer: true,
+          tagPosition: 'bodyClose',
           src: 'https://plausible.io/js/script.js',
-          'data-domain': 'chickpeas-mobile.com'
+          'data-domain': 'chickpeas-mobile.com',
+          defer: true
         }
-      ]
+      ],
+      htmlAttrs: {
+        lang: 'en'
+      }
     }
   },
 
   // @nuxt/image configuration
   image: {
-    quality: 80,
-    format: ['webp'],
+    quality: 70, // Reduced for smaller file sizes
+    format: ['webp', 'avif'], // Add AVIF for better compression
     screens: {
       xs: 320,
       sm: 640,
@@ -80,7 +88,7 @@ runtimeConfig: {
       lg: 1024,
       xl: 1280,
       xxl: 1536,
-    },
+    }
   },
 
   // Nitro server configuration for performance
@@ -91,9 +99,10 @@ runtimeConfig: {
       '/': { prerender: true },
       '/menu': { isr: 300 },  // Revalidates every 5 minutes
       '/contact': { prerender: true },
-      // Static assets - long cache
+      // Static assets - long cache (1 year immutable)
       '/img/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
       '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+      '/fonts/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     },
   },
 

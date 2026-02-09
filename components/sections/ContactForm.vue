@@ -88,8 +88,6 @@
 </template>
 
 <script lang="ts" setup>
-import axios from 'axios'
-
 const config = useRuntimeConfig()
 const endpoint = config.public.formSpreeEndpoint
 
@@ -176,9 +174,20 @@ async function submit() {
       _honeypot: form.website
     }
 
-    await axios.post(endpoint, payload, {
-      headers: { Accept: 'application/json' }
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
     })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.errors?.[0]?.message || data.message || 'Submission failed')
+    }
 
     ok.value = true
     notifySuccess("Thanks! We'll be in touch.")
@@ -190,13 +199,7 @@ async function submit() {
     form.subject = ''
     form.message = ''
   } catch (error: unknown) {
-    let errMsg = 'Something went wrong.'
-    const axiosError = error as { response?: { data?: { errors?: Array<{ message: string }> } }; message?: string }
-    if (axiosError?.response?.data?.errors?.[0]?.message) {
-      errMsg = axiosError.response.data.errors[0].message
-    } else if (axiosError?.message) {
-      errMsg = axiosError.message
-    }
+    const errMsg = error instanceof Error ? error.message : 'Something went wrong.'
     err.value = errMsg
     notifyError(errMsg)
   } finally {

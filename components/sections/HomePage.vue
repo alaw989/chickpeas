@@ -2,7 +2,7 @@
   <div>
     <section class="flex justify-center w-full">
       <div class="restaurant-hero relative w-full overflow-hidden">
-        <img
+        <NuxtImg
           src="/img/banner.webp"
           alt="Chickpeas Restaurant"
           class="absolute inset-0 w-full h-full object-cover"
@@ -10,6 +10,10 @@
           height="1080"
           loading="eager"
           fetchpriority="high"
+          placeholder
+          format="webp"
+          quality="65"
+          sizes="sm:100vw md:100vw lg:100vw"
         />
         <!-- Gradient overlay -->
         <div class="hero-overlay"></div>
@@ -71,9 +75,9 @@
 </template>
 
 <script setup>
-import Info from '~/components/sections/HomeInfo.vue'
-import Location from "~/components/sections/HomeLocation.vue"
-import Menu from '~/components/features/menu/Menu.vue'
+const Info = defineAsyncComponent(() => import('~/components/sections/HomeInfo.vue'))
+const Location = defineAsyncComponent(() => import('~/components/sections/HomeLocation.vue'))
+const Menu = defineAsyncComponent(() => import('~/components/features/menu/Menu.vue'))
 
 defineProps({
   menuData: {
@@ -96,6 +100,10 @@ defineProps({
   position: relative;
   height: calc(100vh - 120px);
   min-height: 600px;
+  /* Contain layout shifts */
+  contain: layout style paint;
+  /* Use content-visibility for better performance */
+  content-visibility: auto;
 }
 
 .hero-overlay {

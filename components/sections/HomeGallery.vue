@@ -4,10 +4,15 @@
     <div class="section-wrap py-12 px-4 gallery">
       <div class="flex justify-between">
         <div class="flex flex-col flex-1 max-w-[45%]">
-          <img
+          <NuxtImg
               src="/img/plate-2.jpg"
               alt="Delicious plate2"
               class="flex-1 h-full w-full"
+              width="600"
+              height="400"
+              loading="lazy"
+              format="webp"
+              quality="70"
           />
           <p class="flex-1 text-left">
             At Chickpeas Mediterranean Grill, Chef Ramona Murr brings her Lebanese heritage and Mobile’s warm Southern
@@ -23,10 +28,15 @@
         </div>
         <div class="flex flex-col flex-1 max-w-[45%]">
           <div class=""></div>
-          <img
+          <NuxtImg
               src="/img/plate-1.jpg"
               alt="Delicious plate 1"
-              class="flex-1 h-full w-full "
+              class="flex-1 h-full w-full"
+              width="600"
+              height="400"
+              loading="lazy"
+              format="webp"
+              quality="70"
           />
         </div>
       </div>
