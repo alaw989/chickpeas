@@ -7,12 +7,12 @@
 
 **Milestone:** v1.1 - Animation Polish
 **Phase:** 2 of 3 (02-section-animations)
-**Plan:** 1 of 3 in phase (02-03 complete)
+**Plan:** 2 of 3 in phase (02-01, 02-03 complete)
 **Status:** In progress
 
-Progress: [============      ] 50% (1/3 phases complete, 1/3 plans in phase 2)
+Progress: [==============    ] 67% (1/3 phases complete, 2/3 plans in phase 2)
 
-Last activity: 2026-02-10 - Completed 02-03-PLAN.md (Menu Staggered Animations)
+Last activity: 2026-02-10 - Completed 02-01-PLAN.md (Hero Parallax)
 
 ## Project Reference
 
@@ -30,6 +30,7 @@ See: .planning/PROJECT.md (updated 2026-02-10)
 | Quick depth | 2026-02-10 | Focused scope, 3 phases |
 | Nuxt module auto-imports | 2026-02-10 | Using @vueuse/motion/nuxt for auto-imported v-motion directive |
 | 50ms stagger interval | 2026-02-10 | Keeps total animation time reasonable with many menu items |
+| 1024px parallax breakpoint | 2026-02-10 | Disables parallax on mobile/touch for performance and UX |
 
 ## Issues & Blockers
 
@@ -42,11 +43,12 @@ None currently.
 | 2026-02-10 | Project initialized, codebase mapped, roadmap created |
 | 2026-02-10 | Completed 01-01: Animation infrastructure setup |
 | 2026-02-10 | Completed 02-03: Menu staggered animations |
+| 2026-02-10 | Completed 02-01: Hero parallax |
 
 ## Session Continuity
 
-Last session: 2026-02-10T17:43Z
-Stopped at: Completed 02-03-PLAN.md
+Last session: 2026-02-10T17:44Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
 
 ---
