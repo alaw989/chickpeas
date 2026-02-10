@@ -54,6 +54,11 @@ Plans:
 
 **Requirements:** MAP-01
 
+**Plans:** 1 plan
+
+Plans:
+- [ ] 03-01-PLAN.md — Replace SVG circles with chickpea logo image
+
 **Success Criteria:**
 1. Map pin shows /img/chickpea-icon.webp instead of SVG circles
 2. Pin maintains proper sizing and positioning
@@ -67,7 +72,7 @@ Plans:
 |-------|------|--------------|-------|
 | 1 | Animation Infrastructure | 2 | 1 ✓ |
 | 2 | Section Animations | 5 | 3 ✓ |
-| 3 | Map Pin Fix | 1 | TBD |
+| 3 | Map Pin Fix | 1 | 1 |
 
 **Total:** 3 phases, 8 requirements
 
