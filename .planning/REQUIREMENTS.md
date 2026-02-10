@@ -8,12 +8,12 @@
 ### Animations
 
 - [x] **ANIM-01**: Install and configure @vueuse/motion for Nuxt 3 ✓
-- [ ] **ANIM-02**: Hero section has subtle parallax effect on background image
-- [ ] **ANIM-03**: Content sections fade-in on scroll entry
-- [ ] **ANIM-04**: Menu items have staggered fade-in animation
-- [ ] **ANIM-05**: Section headers slide-up on scroll entry
+- [x] **ANIM-02**: Hero section has subtle parallax effect on background image ✓
+- [x] **ANIM-03**: Content sections fade-in on scroll entry ✓
+- [x] **ANIM-04**: Menu items have staggered fade-in animation ✓
+- [x] **ANIM-05**: Section headers slide-up on scroll entry ✓
 - [x] **ANIM-06**: Animations respect prefers-reduced-motion media query ✓
-- [ ] **ANIM-07**: Parallax disabled on mobile devices
+- [x] **ANIM-07**: Parallax disabled on mobile devices ✓
 
 ### Map
 
@@ -32,13 +32,13 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ANIM-01 | Phase 1 | Pending |
-| ANIM-02 | Phase 2 | Pending |
-| ANIM-03 | Phase 2 | Pending |
-| ANIM-04 | Phase 2 | Pending |
-| ANIM-05 | Phase 2 | Pending |
-| ANIM-06 | Phase 1 | Pending |
-| ANIM-07 | Phase 2 | Pending |
+| ANIM-01 | Phase 1 | Complete |
+| ANIM-02 | Phase 2 | Complete |
+| ANIM-03 | Phase 2 | Complete |
+| ANIM-04 | Phase 2 | Complete |
+| ANIM-05 | Phase 2 | Complete |
+| ANIM-06 | Phase 1 | Complete |
+| ANIM-07 | Phase 2 | Complete |
 | MAP-01 | Phase 3 | Pending |
 
 **Coverage:**
