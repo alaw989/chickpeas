@@ -17,7 +17,7 @@
 
 ### Map
 
-- [ ] **MAP-01**: Map pin displays chickpea logo image instead of SVG circles
+- [x] **MAP-01**: Map pin displays chickpea logo image instead of SVG circles ✓
 
 ## Out of Scope
 
@@ -39,7 +39,7 @@
 | ANIM-05 | Phase 2 | Complete |
 | ANIM-06 | Phase 1 | Complete |
 | ANIM-07 | Phase 2 | Complete |
-| MAP-01 | Phase 3 | Pending |
+| MAP-01 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 8 total
