@@ -30,6 +30,13 @@ Plans:
 
 **Requirements:** ANIM-02, ANIM-03, ANIM-04, ANIM-05, ANIM-07
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Hero parallax with CSS scroll-driven animation
+- [ ] 02-02-PLAN.md — Content section fade-in and header slide-up animations
+- [ ] 02-03-PLAN.md — Menu items staggered fade-in animation
+
 **Success Criteria:**
 1. Hero background has parallax effect (moves slower than scroll)
 2. Content sections fade-in when entering viewport
@@ -57,7 +64,7 @@ Plans:
 | Phase | Name | Requirements | Plans |
 |-------|------|--------------|-------|
 | 1 | Animation Infrastructure | 2 | 1 ✓ |
-| 2 | Section Animations | 5 | TBD |
+| 2 | Section Animations | 5 | 3 |
 | 3 | Map Pin Fix | 1 | TBD |
 
 **Total:** 3 phases, 8 requirements
