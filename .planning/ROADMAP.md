@@ -10,6 +10,11 @@
 
 **Requirements:** ANIM-01, ANIM-06
 
+**Plans:** 1 plan
+
+Plans:
+- [ ] 01-01-PLAN.md — Install @vueuse/motion and add reduced-motion CSS
+
 **Success Criteria:**
 1. @vueuse/motion installed and configured as Nuxt module
 2. Motion presets available in components via auto-import
@@ -49,7 +54,7 @@
 
 | Phase | Name | Requirements | Plans |
 |-------|------|--------------|-------|
-| 1 | Animation Infrastructure | 2 | TBD |
+| 1 | Animation Infrastructure | 2 | 1 |
 | 2 | Section Animations | 5 | TBD |
 | 3 | Map Pin Fix | 1 | TBD |
 
