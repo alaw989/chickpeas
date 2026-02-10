@@ -5,7 +5,7 @@
         <NuxtImg
           src="/img/banner.webp"
           alt="Chickpeas Restaurant"
-          class="absolute inset-0 w-full h-full object-cover"
+          class="absolute inset-0 w-full h-full object-cover parallax-image"
           width="1920"
           height="1080"
           loading="eager"
@@ -243,5 +243,23 @@ defineProps({
   right: 0;
   border-top-left-radius: 50px;
   width: 50%;
+}
+
+/* Parallax effect - CSS scroll-driven animation */
+@supports (animation-timeline: scroll()) {
+  .parallax-image {
+    animation: parallax-scroll linear;
+    animation-timeline: scroll();
+    animation-range: 0vh 100vh;
+  }
+}
+
+@keyframes parallax-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(30%);
+  }
 }
 </style>
