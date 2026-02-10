@@ -6,20 +6,20 @@
 ## Current Position
 
 **Milestone:** v1.1 - Animation Polish
-**Phase:** 2 of 3 (02-section-animations)
-**Plan:** 3 of 3 in phase (all plans complete)
-**Status:** Phase 2 complete
+**Phase:** 3 of 3 (03-map-pin-fix)
+**Plan:** 1 of 1 in phase (complete)
+**Status:** All phases complete
 
-Progress: [==================] 100% (all 3 plans in phase 2 complete)
+Progress: [====================] 100% (all phases complete)
 
-Last activity: 2026-02-10 - Completed 02-02-PLAN.md (Section Scroll Animations)
+Last activity: 2026-02-10 - Completed 03-01-PLAN.md (Map Pin Fix)
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-02-10)
 
 **Core value:** Polished, professional feel through subtle animations
-**Current focus:** Phase 2 complete, ready for Phase 3 - Polish & Refinement
+**Current focus:** Project complete - all animation enhancements delivered
 
 ## Key Decisions
 
@@ -33,6 +33,7 @@ See: .planning/PROJECT.md (updated 2026-02-10)
 | 1024px parallax breakpoint | 2026-02-10 | Disables parallax on mobile/touch for performance and UX |
 | Staggered delays 0/100/200ms | 2026-02-10 | Cascade timing for section scroll animations |
 | visible-once over visible | 2026-02-10 | Prevents replay on scroll out/in for cleaner UX |
+| SVG image with clipPath for map pin | 2026-02-10 | Clean circular masking for brand logo in Leaflet marker |
 
 ## Issues & Blockers
 
@@ -47,11 +48,12 @@ None currently.
 | 2026-02-10 | Completed 02-03: Menu staggered animations |
 | 2026-02-10 | Completed 02-01: Hero parallax |
 | 2026-02-10 | Completed 02-02: Section scroll animations (HomeInfo, HomeLocation) |
+| 2026-02-10 | Completed 03-01: Map pin fix (chickpea logo image) |
 
 ## Session Continuity
 
-Last session: 2026-02-10T17:48Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-02-10T21:01Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None
 
 ---
