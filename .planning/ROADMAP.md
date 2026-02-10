@@ -13,7 +13,9 @@
 **Plans:** 1 plan
 
 Plans:
-- [ ] 01-01-PLAN.md — Install @vueuse/motion and add reduced-motion CSS
+- [x] 01-01-PLAN.md — Install @vueuse/motion and add reduced-motion CSS ✓
+
+**Status:** Complete (2026-02-10)
 
 **Success Criteria:**
 1. @vueuse/motion installed and configured as Nuxt module
@@ -54,7 +56,7 @@ Plans:
 
 | Phase | Name | Requirements | Plans |
 |-------|------|--------------|-------|
-| 1 | Animation Infrastructure | 2 | 1 |
+| 1 | Animation Infrastructure | 2 | 1 ✓ |
 | 2 | Section Animations | 5 | TBD |
 | 3 | Map Pin Fix | 1 | TBD |
 

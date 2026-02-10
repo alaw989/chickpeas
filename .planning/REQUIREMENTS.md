@@ -7,12 +7,12 @@
 
 ### Animations
 
-- [ ] **ANIM-01**: Install and configure @vueuse/motion for Nuxt 3
+- [x] **ANIM-01**: Install and configure @vueuse/motion for Nuxt 3 ✓
 - [ ] **ANIM-02**: Hero section has subtle parallax effect on background image
 - [ ] **ANIM-03**: Content sections fade-in on scroll entry
 - [ ] **ANIM-04**: Menu items have staggered fade-in animation
 - [ ] **ANIM-05**: Section headers slide-up on scroll entry
-- [ ] **ANIM-06**: Animations respect prefers-reduced-motion media query
+- [x] **ANIM-06**: Animations respect prefers-reduced-motion media query ✓
 - [ ] **ANIM-07**: Parallax disabled on mobile devices
 
 ### Map
