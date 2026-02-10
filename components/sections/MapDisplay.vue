@@ -39,12 +39,15 @@ onMounted(async () => {
       html: `
         <div class="pin-wrapper">
           <svg class="pin-svg" viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="pin-clip">
+                <circle cx="20" cy="20" r="14"/>
+              </clipPath>
+            </defs>
             <path class="pin-shadow" d="M20 52C20 52 4 34 4 20C4 11.16 11.16 4 20 4C28.84 4 36 11.16 36 20C36 34 20 52 20 52Z" fill="#000" fill-opacity="0.15" transform="translate(1, 1)"/>
             <path class="pin-body" d="M20 48C20 48 4 32 4 20C4 11.16 11.16 4 20 4C28.84 4 36 11.16 36 20C36 32 20 48 20 48Z" fill="#3f6e4d"/>
             <circle class="pin-inner" cx="20" cy="20" r="14" fill="#e6fbcc"/>
-            <!-- Chickpea circles -->
-            <circle cx="16" cy="18" r="4" fill="#3f6e4d"/>
-            <circle cx="24" cy="22" r="4" fill="#3f6e4d"/>
+            <image href="/img/chickpea-icon.webp" x="6" y="6" width="28" height="28" clip-path="url(#pin-clip)" preserveAspectRatio="xMidYMid slice"/>
           </svg>
         </div>
       `,
