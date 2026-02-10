@@ -245,12 +245,14 @@ defineProps({
   width: 50%;
 }
 
-/* Parallax effect - CSS scroll-driven animation */
-@supports (animation-timeline: scroll()) {
-  .parallax-image {
-    animation: parallax-scroll linear;
-    animation-timeline: scroll();
-    animation-range: 0vh 100vh;
+/* Parallax effect - desktop only, CSS scroll-driven animation */
+@media (min-width: 1024px) {
+  @supports (animation-timeline: scroll()) {
+    .parallax-image {
+      animation: parallax-scroll linear;
+      animation-timeline: scroll();
+      animation-range: 0vh 100vh;
+    }
   }
 }
 
