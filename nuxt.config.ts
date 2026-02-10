@@ -114,6 +114,7 @@ runtimeConfig: {
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/scripts',
+    '@vueuse/motion/nuxt',
   ],
 
   // Build optimizations to reduce unused JavaScript
