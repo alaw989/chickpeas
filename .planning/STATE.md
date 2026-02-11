@@ -6,13 +6,13 @@
 ## Current Position
 
 **Milestone:** v1.2 - Specials & QR Menu
-**Phase:** Not started (defining requirements)
+**Phase:** 4 of 5 (04-specials-section) — not started
 **Plan:** —
-**Status:** Defining requirements
+**Status:** Ready to plan Phase 4
 
 Progress: [░░░░░░░░░░░░░░░░░░░░] 0%
 
-Last activity: 2026-02-11 - Milestone v1.2 started
+Last activity: 2026-02-11 - Roadmap created (2 phases, 7 requirements)
 
 ## Project Reference
 

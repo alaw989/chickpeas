@@ -31,18 +31,18 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SPEC-01 | — | Pending |
-| SPEC-02 | — | Pending |
-| SPEC-03 | — | Pending |
-| SPEC-04 | — | Pending |
-| SPEC-05 | — | Pending |
-| QR-01 | — | Pending |
-| QR-02 | — | Pending |
+| SPEC-01 | Phase 4 | Pending |
+| SPEC-02 | Phase 4 | Pending |
+| SPEC-03 | Phase 4 | Pending |
+| SPEC-04 | Phase 4 | Pending |
+| SPEC-05 | Phase 4 | Pending |
+| QR-01 | Phase 5 | Pending |
+| QR-02 | Phase 5 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 7 total
-- Mapped to phases: 0
-- Unmapped: 7 (roadmap pending)
+- Mapped to phases: 7
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-02-11*

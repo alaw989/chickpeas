@@ -1,82 +1,62 @@
-# Roadmap: Chickpeas Animation Enhancement
+# Roadmap: Chickpeas v1.2 - Specials & QR Menu
 
-**Created:** 2026-02-10
-**Milestone:** v1.1 - Animation Polish
+**Created:** 2026-02-11
+**Milestone:** v1.2 - Specials & QR Menu
 
 ## Phases
 
-### Phase 1: Animation Infrastructure
-**Goal:** Set up @vueuse/motion and accessibility foundations
+### Phase 4: Specials Section
+**Goal:** Display WordPress-managed specials below the hero on the homepage
 
-**Requirements:** ANIM-01, ANIM-06
+**Requirements:** SPEC-01, SPEC-02, SPEC-03, SPEC-04, SPEC-05
 
-**Plans:** 1 plan
+**Plans:** TBD
 
-Plans:
-- [x] 01-01-PLAN.md — Install @vueuse/motion and add reduced-motion CSS ✓
-
-**Status:** Complete (2026-02-10)
+**Status:** Not started
 
 **Success Criteria:**
-1. @vueuse/motion installed and configured as Nuxt module
-2. Motion presets available in components via auto-import
-3. prefers-reduced-motion utility or CSS rule in place
-4. Dev server runs without errors
+1. Specials section appears below hero when specials exist in WordPress
+2. Each special displays photo, name, price, and description
+3. Multiple specials render in a grid/row layout
+4. Section is completely hidden when no specials are published
+5. Adding/removing specials in WordPress updates the site (via ISR or on-demand)
+
+**Notes:**
+- Requires WordPress custom post type "specials" with fields: title, featured image, price (custom field), description (excerpt or custom field)
+- WordPress REST API endpoint: `/wp-json/wp/v2/specials`
+- Consider ACF for custom fields if already installed, otherwise use native custom fields
 
 ---
 
-### Phase 2: Section Animations
-**Goal:** Add subtle scroll-triggered animations to hero and content sections
+### Phase 5: QR Code Generation
+**Goal:** Provide a printable QR code that links to the menu page
 
-**Requirements:** ANIM-02, ANIM-03, ANIM-04, ANIM-05, ANIM-07
+**Requirements:** QR-01, QR-02
 
-**Plans:** 3 plans
+**Plans:** TBD
 
-Plans:
-- [x] 02-01-PLAN.md — Hero parallax with CSS scroll-driven animation ✓
-- [x] 02-02-PLAN.md — Content section fade-in and header slide-up animations ✓
-- [x] 02-03-PLAN.md — Menu items staggered fade-in animation ✓
-
-**Status:** Complete (2026-02-10)
+**Status:** Not started
 
 **Success Criteria:**
-1. Hero background has parallax effect (moves slower than scroll)
-2. Content sections fade-in when entering viewport
-3. Menu items animate with staggered timing
-4. Section headers slide up on entry
-5. Parallax disabled on mobile (touch devices)
-6. Animations feel subtle and polished, not distracting
+1. QR code image exists linking to menu page URL
+2. QR code is provided in print-ready format (PNG and/or SVG)
+3. QR code scans correctly on mobile devices
 
----
-
-### Phase 3: Map Pin Fix
-**Goal:** Update map marker to display chickpea logo
-
-**Requirements:** MAP-01
-
-**Plans:** 1 plan
-
-Plans:
-- [x] 03-01-PLAN.md — Replace SVG circles with chickpea logo image ✓
-
-**Status:** Complete (2026-02-10)
-
-**Success Criteria:**
-1. Map pin shows /img/chickpea-icon.webp instead of SVG circles
-2. Pin maintains proper sizing and positioning
-3. Popup still works on click
+**Notes:**
+- Menu page URL: https://chickpeas-mobile.com/menu (or similar)
+- One-time generation, stored in /public/img/ or delivered to client
+- Can use any QR generator (online tool, npm package, or CLI)
 
 ---
 
 ## Summary
 
-| Phase | Name | Requirements | Plans |
-|-------|------|--------------|-------|
-| 1 | Animation Infrastructure | 2 | 1 ✓ |
-| 2 | Section Animations | 5 | 3 ✓ |
-| 3 | Map Pin Fix | 1 | 1 ✓ |
+| Phase | Name | Requirements | Success Criteria |
+|-------|------|--------------|------------------|
+| 4 | Specials Section | SPEC-01 through SPEC-05 | 5 |
+| 5 | QR Code Generation | QR-01, QR-02 | 3 |
 
-**Total:** 3 phases, 8 requirements
+**Total:** 2 phases, 7 requirements
 
 ---
-*Roadmap created: 2026-02-10*
+*Roadmap created: 2026-02-11*
