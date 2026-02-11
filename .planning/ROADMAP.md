@@ -10,9 +10,12 @@
 
 **Requirements:** SPEC-01, SPEC-02, SPEC-03, SPEC-04, SPEC-05
 
-**Plans:** TBD
+**Plans:** 1 plan
 
-**Status:** Not started
+Plans:
+- [ ] 04-01-PLAN.md — API endpoint, composable, component, and homepage integration
+
+**Status:** Ready for execution
 
 **Success Criteria:**
 1. Specials section appears below hero when specials exist in WordPress
