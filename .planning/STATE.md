@@ -6,20 +6,20 @@
 ## Current Position
 
 **Milestone:** v1.2 - Specials & QR Menu
-**Phase:** 4 of 5 (04-specials-section) — not started
-**Plan:** —
-**Status:** Ready to plan Phase 4
+**Phase:** 4 of 5 (04-specials-section) — complete
+**Plan:** 1 of 1
+**Status:** Phase 4 complete, ready for Phase 5
 
-Progress: [░░░░░░░░░░░░░░░░░░░░] 0%
+Progress: [██████████░░░░░░░░░░] 50%
 
-Last activity: 2026-02-11 - Roadmap created (2 phases, 7 requirements)
+Last activity: 2026-02-11 - Completed 04-01-PLAN.md (specials section)
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-02-10)
 
 **Core value:** Polished, professional feel through subtle animations
-**Current focus:** Project complete - all animation enhancements delivered
+**Current focus:** WordPress-managed specials and QR menu features
 
 ## Key Decisions
 
@@ -34,6 +34,9 @@ See: .planning/PROJECT.md (updated 2026-02-10)
 | Staggered delays 0/100/200ms | 2026-02-10 | Cascade timing for section scroll animations |
 | visible-once over visible | 2026-02-10 | Prevents replay on scroll out/in for cleaner UX |
 | SVG image with clipPath for map pin | 2026-02-10 | Clean circular masking for brand logo in Leaflet marker |
+| Graceful 404 for specials API | 2026-02-11 | Return empty array on WP errors to avoid breaking page |
+| Position specials after hero | 2026-02-11 | Natural content flow, before triangle divider |
+| Conditional section rendering | 2026-02-11 | v-if on data.length to hide empty sections |
 
 ## Issues & Blockers
 
@@ -47,11 +50,12 @@ None currently.
 | 2026-02-10 | Completed Phase 1-3: Animation infrastructure, section animations, map pin |
 | 2026-02-11 | Archived milestone v1.1 - Animation Polish |
 | 2026-02-11 | Started milestone v1.2 - Specials & QR Menu |
+| 2026-02-11 | Completed Phase 4: Specials section (API, component, homepage integration) |
 
 ## Session Continuity
 
-Last session: 2026-02-11
-Stopped at: Defining requirements for v1.2
+Last session: 2026-02-11 17:23Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
 
 ---
