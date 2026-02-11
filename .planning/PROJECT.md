@@ -21,7 +21,8 @@ Visitors can quickly find the menu, hours, location, and contact the restaurant 
 
 ### Active
 
-None — ready for next milestone
+- [ ] Specials section below hero (WordPress-managed)
+- [ ] Menu QR code for printing
 
 ### Out of Scope
 
@@ -30,9 +31,19 @@ None — ready for next milestone
 - Horizontal scroll sections — not aligned with restaurant site UX
 - 3D effects — overkill for this project
 
+## Current Milestone: v1.2 Specials & QR Menu
+
+**Goal:** Let the restaurant highlight daily specials on the homepage and provide a scannable QR code for the menu.
+
+**Target features:**
+- Specials section below hero with photo, name, price, description
+- Support for multiple specials, managed from WordPress
+- Section disappears when no specials active
+- Static QR code image linking to menu page for printing
+
 ## Context
 
-The site is already live and performing well. This enhancement focuses on adding polish through tasteful animations without impacting the existing performance optimizations.
+The site is already live and performing well with smooth animations added in v1.1. This milestone adds practical restaurant features — a way to promote specials and make the menu accessible via QR code.
 
 **Current stack:**
 - Nuxt 3.16.2 with Vue 3.5
@@ -68,4 +79,4 @@ The site is already live and performing well. This enhancement focuses on adding
 | v1.1 | Animation Polish | 2026-02-10 | Scroll animations, hero parallax, map pin branding |
 
 ---
-*Last updated: 2026-02-11 after v1.1 completion*
+*Last updated: 2026-02-11 after v1.2 milestone start*

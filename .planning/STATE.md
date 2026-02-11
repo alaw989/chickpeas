@@ -5,14 +5,14 @@
 
 ## Current Position
 
-**Milestone:** None active
-**Phase:** —
+**Milestone:** v1.2 - Specials & QR Menu
+**Phase:** Not started (defining requirements)
 **Plan:** —
-**Status:** Ready for next milestone
+**Status:** Defining requirements
 
-Progress: Milestone v1.1 archived
+Progress: [░░░░░░░░░░░░░░░░░░░░] 0%
 
-Last activity: 2026-02-11 - Completed milestone v1.1 (Animation Polish)
+Last activity: 2026-02-11 - Milestone v1.2 started
 
 ## Project Reference
 
@@ -44,15 +44,14 @@ None currently.
 | Date | What Happened |
 |------|---------------|
 | 2026-02-10 | Project initialized, codebase mapped, roadmap created |
-| 2026-02-10 | Completed Phase 1: Animation infrastructure |
-| 2026-02-10 | Completed Phase 2: Section animations (parallax, fade-in, stagger) |
-| 2026-02-10 | Completed Phase 3: Map pin fix |
+| 2026-02-10 | Completed Phase 1-3: Animation infrastructure, section animations, map pin |
 | 2026-02-11 | Archived milestone v1.1 - Animation Polish |
+| 2026-02-11 | Started milestone v1.2 - Specials & QR Menu |
 
 ## Session Continuity
 
 Last session: 2026-02-11
-Stopped at: Milestone v1.1 archived
+Stopped at: Defining requirements for v1.2
 Resume file: None
 
 ---
