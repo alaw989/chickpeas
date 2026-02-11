@@ -13,9 +13,9 @@
 **Plans:** 1 plan
 
 Plans:
-- [ ] 04-01-PLAN.md — API endpoint, composable, component, and homepage integration
+- [x] 04-01-PLAN.md — API endpoint, composable, component, and homepage integration ✓
 
-**Status:** Ready for execution
+**Status:** Complete (2026-02-11)
 
 **Success Criteria:**
 1. Specials section appears below hero when specials exist in WordPress

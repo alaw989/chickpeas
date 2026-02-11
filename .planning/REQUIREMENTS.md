@@ -7,11 +7,11 @@
 
 ### Specials
 
-- [ ] **SPEC-01**: Specials section displays below hero on homepage
-- [ ] **SPEC-02**: Each special shows photo, name, price, description
-- [ ] **SPEC-03**: Section supports multiple specials at once
-- [ ] **SPEC-04**: Section hidden when no active specials exist
-- [ ] **SPEC-05**: Specials manageable from WordPress admin (custom post type or ACF)
+- [x] **SPEC-01**: Specials section displays below hero on homepage ✓
+- [x] **SPEC-02**: Each special shows photo, name, price, description ✓
+- [x] **SPEC-03**: Section supports multiple specials at once ✓
+- [x] **SPEC-04**: Section hidden when no active specials exist ✓
+- [x] **SPEC-05**: Specials manageable from WordPress admin (custom post type or ACF) ✓
 
 ### QR Menu
 
@@ -31,11 +31,11 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SPEC-01 | Phase 4 | Pending |
-| SPEC-02 | Phase 4 | Pending |
-| SPEC-03 | Phase 4 | Pending |
-| SPEC-04 | Phase 4 | Pending |
-| SPEC-05 | Phase 4 | Pending |
+| SPEC-01 | Phase 4 | Complete |
+| SPEC-02 | Phase 4 | Complete |
+| SPEC-03 | Phase 4 | Complete |
+| SPEC-04 | Phase 4 | Complete |
+| SPEC-05 | Phase 4 | Complete |
 | QR-01 | Phase 5 | Pending |
 | QR-02 | Phase 5 | Pending |
 
