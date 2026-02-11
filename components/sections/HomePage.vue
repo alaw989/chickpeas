@@ -5,7 +5,7 @@
         <NuxtImg
           src="/img/banner.webp"
           alt="Chickpeas Restaurant"
-          class="absolute inset-0 w-full h-full object-cover"
+          class="absolute inset-0 w-full h-full object-cover parallax-image"
           width="1920"
           height="1080"
           loading="eager"
@@ -59,6 +59,10 @@
         </div>
       </div>
     </section>
+
+    <!-- Specials section - only renders when specials exist -->
+    <Specials v-if="specialsData.length > 0" :specials="specialsData" />
+
     <section class="triangle"></section>
     <section class="text-center">
       <Info />
@@ -78,6 +82,7 @@
 const Info = defineAsyncComponent(() => import('~/components/sections/HomeInfo.vue'))
 const Location = defineAsyncComponent(() => import('~/components/sections/HomeLocation.vue'))
 const Menu = defineAsyncComponent(() => import('~/components/features/menu/Menu.vue'))
+const Specials = defineAsyncComponent(() => import('~/components/sections/HomeSpecials.vue'))
 
 defineProps({
   menuData: {
@@ -91,6 +96,10 @@ defineProps({
   loadError: {
     type: String,
     default: null
+  },
+  specialsData: {
+    type: Array,
+    default: () => []
   }
 })
 </script>
@@ -243,5 +252,25 @@ defineProps({
   right: 0;
   border-top-left-radius: 50px;
   width: 50%;
+}
+
+/* Parallax effect - desktop only, CSS scroll-driven animation */
+@media (min-width: 1024px) {
+  @supports (animation-timeline: scroll()) {
+    .parallax-image {
+      animation: parallax-scroll linear;
+      animation-timeline: scroll();
+      animation-range: 0vh 100vh;
+    }
+  }
+}
+
+@keyframes parallax-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(30%);
+  }
 }
 </style>

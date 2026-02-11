@@ -48,7 +48,12 @@
     />
     <section class="info-wrapper w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8">
       <div class="info-container flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 lg:gap-12">
-        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10 w-full lg:w-1/2 text-left">
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 md:p-10 w-full lg:w-1/2 text-left"
+          v-motion
+          :initial="{ opacity: 0, y: 24 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 } }"
+        >
           <p class="font-grotesk font-bold text-primary-500 text-sm uppercase tracking-wider mb-2">Our Story</p>
           <h2 class="heading-lg mb-6">The recipe behind our success</h2>
 
@@ -75,7 +80,12 @@
           </a>
         </div>
 
-        <div class="flex flex-col right-container w-full lg:w-1/2">
+        <div
+          class="flex flex-col right-container w-full lg:w-1/2"
+          v-motion
+          :initial="{ opacity: 0, y: 24 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 } }"
+        >
           <div class="w-full max-h-[400px] chickpeas-bg rounded-2xl mb-14 shadow-lg overflow-hidden">
             <NuxtImg
               src="/img/chickpeas-restaurant.webp"

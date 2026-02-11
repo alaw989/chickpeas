@@ -7,6 +7,7 @@ export default defineNuxtConfig({
 runtimeConfig: {
     // Server-only config
     wpMenuEndpoint: process.env.WP_MENU_ENDPOINT || 'https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc',
+    wpSpecialsEndpoint: process.env.WP_SPECIALS_ENDPOINT || 'https://wp.chickpeas-mobile.com/wp-json/wp/v2/specials?per_page=10&_embed',
     public: {
       siteUrl: 'https://chickpeas-mobile.com',
       business: {
@@ -114,6 +115,7 @@ runtimeConfig: {
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/scripts',
+    '@vueuse/motion/nuxt',
   ],
 
   // Build optimizations to reduce unused JavaScript
