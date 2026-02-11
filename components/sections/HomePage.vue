@@ -59,6 +59,10 @@
         </div>
       </div>
     </section>
+
+    <!-- Specials section - only renders when specials exist -->
+    <Specials v-if="specialsData.length > 0" :specials="specialsData" />
+
     <section class="triangle"></section>
     <section class="text-center">
       <Info />
@@ -78,6 +82,7 @@
 const Info = defineAsyncComponent(() => import('~/components/sections/HomeInfo.vue'))
 const Location = defineAsyncComponent(() => import('~/components/sections/HomeLocation.vue'))
 const Menu = defineAsyncComponent(() => import('~/components/features/menu/Menu.vue'))
+const Specials = defineAsyncComponent(() => import('~/components/sections/HomeSpecials.vue'))
 
 defineProps({
   menuData: {
@@ -91,6 +96,10 @@ defineProps({
   loadError: {
     type: String,
     default: null
+  },
+  specialsData: {
+    type: Array,
+    default: () => []
   }
 })
 </script>

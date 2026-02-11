@@ -1,5 +1,10 @@
 <template>
-  <Home :menuData="menuData || []" :isLoading="pending" :loadError="errorMessage" />
+  <Home
+    :menuData="menuData || []"
+    :isLoading="pending"
+    :loadError="errorMessage"
+    :specialsData="specialsData || []"
+  />
 </template>
 
 <script setup lang="ts">
@@ -11,6 +16,7 @@ const business = config.public.business
 
 const { data: siteData } = await useSiteData()
 const { data: menuData, pending, error } = await useMenuData()
+const { data: specialsData } = await useSpecialsData()
 
 const businessName = computed(() => siteData.value?.restaurant?.name || business.name)
 const description = computed(() =>
