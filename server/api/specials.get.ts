@@ -55,9 +55,12 @@ export default defineEventHandler(async (event) => {
     }))
 
     return specials
-  } catch (error) {
-    // Log error but return empty array to avoid breaking the page
-    console.error('Failed to fetch specials:', error)
+  } catch (error: any) {
+    // 404 is expected if the specials post type doesn't exist yet in WordPress
+    // Only log unexpected errors
+    if (error?.statusCode !== 404 && error?.status !== 404) {
+      console.error('Failed to fetch specials:', error)
+    }
     return [] as Special[]
   }
 })
