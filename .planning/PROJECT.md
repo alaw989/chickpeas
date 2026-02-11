@@ -21,12 +21,7 @@ Visitors can quickly find the menu, hours, location, and contact the restaurant 
 
 ### Active
 
-- [ ] Add subtle scroll-triggered animations (fade-in, slide-up) to content sections
-- [ ] Add parallax effect to hero section background
-- [ ] Stagger menu item animations on scroll
-- [ ] Section header reveal animations
-- [ ] Fix map pin to display actual chickpea logo image
-- [ ] Respect prefers-reduced-motion for accessibility
+None — ready for next milestone
 
 ### Out of Scope
 
@@ -62,9 +57,15 @@ The site is already live and performing well. This enhancement focuses on adding
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Use @vueuse/motion over GSAP | Lighter weight, native Nuxt integration, sufficient for subtle animations | — Pending |
-| CSS scroll-driven for parallax | Zero JS overhead, good browser support | — Pending |
-| Disable parallax on mobile | iOS Safari doesn't support background-attachment: fixed | — Pending |
+| Use @vueuse/motion over GSAP | Lighter weight, native Nuxt integration, sufficient for subtle animations | ✓ Delivered in v1.1 |
+| CSS scroll-driven for parallax | Zero JS overhead, good browser support | ✓ Delivered in v1.1 |
+| Disable parallax on mobile | iOS Safari doesn't support background-attachment: fixed | ✓ Delivered in v1.1 |
+
+## Completed Milestones
+
+| Version | Name | Date | Summary |
+|---------|------|------|---------|
+| v1.1 | Animation Polish | 2026-02-10 | Scroll animations, hero parallax, map pin branding |
 
 ---
-*Last updated: 2026-02-10 after initialization*
+*Last updated: 2026-02-11 after v1.1 completion*
