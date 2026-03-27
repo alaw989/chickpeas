@@ -1,14 +1,24 @@
 <template>
   <section class="location-section">
     <div class="location-wrap">
-      <div class="location-header text-center mx-auto">
+      <div
+        class="location-header text-center mx-auto"
+        v-motion
+        :initial="{ opacity: 0, y: 20 }"
+        :visible-once="{ opacity: 1, y: 0, transition: { duration: 400, delay: 0 } }"
+      >
         <p class="eyebrow">Visit Us</p>
         <h2 class="heading-lg">Visit Us For The Ultimate Mediterranean Dining Experience</h2>
         <p class="lead">850 Blackburn Dr, Mobile, AL 36608</p>
       </div>
 
       <div class="location-grid">
-        <div class="location-card info-card">
+        <div
+          class="location-card info-card"
+          v-motion
+          :initial="{ opacity: 0, y: 24 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 } }"
+        >
           <div class="hours-section">
             <div class="hours-header">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3f6e4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -57,7 +67,12 @@
           </div>
         </div>
 
-        <div class="location-card map-card">
+        <div
+          class="location-card map-card"
+          v-motion
+          :initial="{ opacity: 0, y: 24 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 } }"
+        >
           <div class="map-shell">
             <ClientOnly>
               <MapDisplay />

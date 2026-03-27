@@ -1,7 +1,12 @@
 <template>
   <div class="w-full mx-auto flex justify-center ">
     <div class="w-full mx-auto menu-wrapper section-wrap px-4 md:px-0">
-      <div class="text-center mb-10">
+      <div
+        class="text-center mb-10"
+        v-motion
+        :initial="{ opacity: 0, y: 20 }"
+        :visible-once="{ opacity: 1, y: 0, transition: { duration: 400 } }"
+      >
         <p class="eyebrow mb-2">Menu</p>
         <component :is="headingTag" class="heading-lg mb-3">Crafted with care, served with love</component>
         <p class="font-ptsans text-base md:text-lg text-gray-600 max-w-xl mx-auto mb-6">
@@ -49,7 +54,20 @@
         <transition name="switch" mode="out-in">
           <template v-if="currentMenuItems.length">
             <ul :key="selectedTab" ref="menuContent" class="flex flex-wrap menu-items">
-              <li v-for="(item, i) in currentMenuItems" :key="item.id || i">
+              <li
+                v-for="(item, i) in currentMenuItems"
+                :key="item.id || i"
+                v-motion
+                :initial="{ opacity: 0, y: 16 }"
+                :visible-once="{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 400,
+                    delay: 50 + (i * 50)
+                  }
+                }"
+              >
 
                 <NuxtImg
                     :src="item.image?.guid || '/img/med-plate-photo-coming-soon.webp'"
