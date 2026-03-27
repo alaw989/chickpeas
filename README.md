@@ -1,75 +1,65 @@
-# Nuxt Minimal Starter
+# Chickpeas Mediterranean Kitchen
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Restaurant website for [Chickpeas Mediterranean Kitchen](https://chickpeas-mobile.com), a Mediterranean and Lebanese restaurant in Mobile, AL. Built with Nuxt 3 for server-side rendering, fast performance, and SEO optimization.
+
+## What It Does
+
+- **Restaurant landing page** — introduction, featured items, photo gallery, and location
+- **Menu display** — dynamically loaded from WordPress REST API, with a static JSON fallback if the API is unavailable
+- **Contact page** — contact form (Formspree integration) and restaurant information
+- **Online ordering** — DoorDash integration links
+- **SEO** — rich schema markup for restaurants and menus, auto-generated sitemap, Open Graph meta tags
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Nuxt 3, Vue 3 (Composition API), TypeScript |
+| Styling | Tailwind CSS (v4) |
+| CMS | WordPress (headless, REST API) |
+| Maps | Leaflet |
+| Forms | Formspree |
+| Analytics | Plausible (privacy-friendly) |
+| Testing | Vitest (unit), Playwright (E2E) |
+| Deploy | DigitalOcean App Platform, PM2 |
+
+## Pages
+
+- `/` — Home page with hero, featured items, gallery, and map
+- `/menu` — Full menu with categories (Breakfast, Appetizers, Dinner, etc.)
+- `/contact` — Contact form and restaurant info
 
 ## Setup
 
-Make sure to install dependencies:
-
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+cp .env.example .env     # Set WP_MENU_ENDPOINT (optional, has a default)
+npm run dev              # http://localhost:3000
 ```
 
-## Development Server
+## Environment Variables
 
-Start the development server on `http://localhost:3000`:
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `WP_MENU_ENDPOINT` | `https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc` | WordPress REST API endpoint for menu data |
 
-```bash
-# npm
-npm run dev
+## Scripts
 
-# pnpm
-pnpm dev
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build |
+| `npm run test` | Run Vitest unit tests |
+| `npm run test:e2e` | Run Playwright E2E tests |
 
-# yarn
-yarn dev
+## Key Architecture Decisions
 
-# bun
-bun run dev
-```
+- **Dynamic menu with static fallback** — menu data is fetched from WordPress at build time with a 5-minute ISR revalidation interval. If the API is down, a bundled `data.json` serves as the fallback.
+- **Aggressive caching** — 1-year cache headers for static assets, critical resource preloading, code splitting for Leaflet and Vue core
+- **Image optimization** — WebP/AVIF formats with responsive sizing via `@nuxt/image`
+- **ISR (Incremental Static Regeneration)** — menu page revalidates every 5 minutes for fresh content without full rebuilds
 
-## Production
+## License
 
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Private project.
