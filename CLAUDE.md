@@ -8,7 +8,7 @@
 - **Forms**: Formspree
 - **Analytics**: Plausible (privacy-friendly)
 - **Testing**: Vitest (unit), Playwright (E2E)
-- **Deploy**: DigitalOcean App Platform, PM2
+- **Deploy**: GitHub Actions (build on CI) → rsync to DigitalOcean droplet → PM2 restart
 
 ## Commands
 ```bash
@@ -24,10 +24,12 @@ npm run test:e2e           # E2E tests (Playwright)
 ## Architecture
 - Server-side rendering for SEO (restaurant site — Google discoverability is critical)
 - ISR (Incremental Static Regeneration) on menu page with 5-minute revalidation
-- Menu data fetched from WordPress REST API, with bundled `data.json` as static fallback
+- Menu data fetched from WordPress REST API (`_embed` param for featured images), with bundled `data.json` as static fallback
+- Menu images: WP featured media transformed to `{ guid: source_url }` in `server/api/menu.get.ts`
 - Aggressive caching: 1-year headers for static assets, critical resource preloading
 - Image optimization: WebP/AVIF via `@nuxt/image`, responsive sizing
 - Code splitting: separate chunks for Leaflet and Vue core
+- Map uses custom chickpea favicon as pin marker (`/img/chickpea-icon.webp`)
 
 ## Pages
 - `/` — Home (hero, featured items, gallery, map)

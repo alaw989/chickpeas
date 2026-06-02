@@ -21,7 +21,7 @@ Restaurant website for [Chickpeas Mediterranean Kitchen](https://chickpeas-mobil
 | Forms | Formspree |
 | Analytics | Plausible (privacy-friendly) |
 | Testing | Vitest (unit), Playwright (E2E) |
-| Deploy | DigitalOcean App Platform, PM2 |
+| Deploy | GitHub Actions → rsync → DigitalOcean droplet, PM2 |
 
 ## Pages
 
@@ -41,7 +41,7 @@ npm run dev              # http://localhost:3000
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `WP_MENU_ENDPOINT` | `https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc` | WordPress REST API endpoint for menu data |
+| `WP_MENU_ENDPOINT` | `https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc&_embed` | WordPress REST API endpoint for menu data (includes `_embed` for featured images) |
 
 ## Scripts
 
@@ -55,10 +55,11 @@ npm run dev              # http://localhost:3000
 
 ## Key Architecture Decisions
 
-- **Dynamic menu with static fallback** — menu data is fetched from WordPress at build time with a 5-minute ISR revalidation interval. If the API is down, a bundled `data.json` serves as the fallback.
+- **Dynamic menu with static fallback** — menu data is fetched from WordPress at build time with a 5-minute ISR revalidation interval. If the API is down, a bundled `data.json` serves as the fallback. Featured images are embedded via the `_embed` query param and transformed in the server API.
 - **Aggressive caching** — 1-year cache headers for static assets, critical resource preloading, code splitting for Leaflet and Vue core
 - **Image optimization** — WebP/AVIF formats with responsive sizing via `@nuxt/image`
 - **ISR (Incremental Static Regeneration)** — menu page revalidates every 5 minutes for fresh content without full rebuilds
+- **Build on CI, not droplet** — the 512MB droplet runs out of memory during Nuxt's Nitro build step, so the CI runner handles the build and rsyncs `.output` to the droplet
 
 ## License
 
