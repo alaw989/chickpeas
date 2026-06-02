@@ -7,14 +7,13 @@ describe('NavBar.vue', () => {
     it('renders all menu items', async () => {
       const wrapper = await mountSuspended(NavBar)
 
-      // Desktop menu should have all 4 items
+      // Desktop menu should have all 3 items
       const desktopItems = wrapper.findAll('.menu li')
-      expect(desktopItems.length).toBe(4)
+      expect(desktopItems.length).toBe(3)
 
       // Check labels
       expect(wrapper.text()).toContain('View Our Menu')
-      expect(wrapper.text()).toContain('Order Takeout')
-      expect(wrapper.text()).toContain('Order Delivery')
+      expect(wrapper.text()).toContain('Order Online')
       expect(wrapper.text()).toContain('Contact Us')
     })
 
@@ -58,27 +57,25 @@ describe('NavBar.vue', () => {
       expect(contactLink.text()).toBe('Contact Us')
     })
 
-    it('renders external links (takeout/delivery) as <a> tags with target="_blank"', async () => {
+    it('renders external order link as <a> tag with target="_blank"', async () => {
       const wrapper = await mountSuspended(NavBar)
 
-      // Takeout and delivery links should be external (loaded from data.json)
+      // Order Online link should be external (loaded from data.json)
       const externalLinks = wrapper.findAll('.menu a[target="_blank"]')
-      expect(externalLinks.length).toBe(2) // takeout and delivery
+      expect(externalLinks.length).toBe(1)
 
-      // Verify they have correct attributes
-      externalLinks.forEach(link => {
-        expect(link.attributes('rel')).toBe('noopener noreferrer')
-        expect(link.attributes('href')).toContain('order.online') // DoorDash URL from data.json
-      })
+      // Verify it has correct attributes
+      const orderLink = externalLinks[0]
+      expect(orderLink.attributes('rel')).toBe('noopener noreferrer')
+      expect(orderLink.attributes('href')).toContain('order.online')
     })
 
-    it('external links have DoorDash URL from imported data.json', async () => {
+    it('order link has DoorDash URL from imported data.json', async () => {
       const wrapper = await mountSuspended(NavBar)
 
-      const takeoutLink = wrapper.find('.menu a[target="_blank"]')
-      const href = takeoutLink.attributes('href')
+      const orderLink = wrapper.find('.menu a[target="_blank"]')
+      const href = orderLink.attributes('href')
 
-      // URL should be the DoorDash URL from public/data.json
       expect(href).toContain('order.online/store/chickpeas-mediterranean-grill')
     })
   })
@@ -137,11 +134,10 @@ describe('NavBar.vue', () => {
       const wrapper = await mountSuspended(NavBar)
 
       const mobileItems = wrapper.findAll('.mobile-menu li')
-      expect(mobileItems.length).toBe(4)
+      expect(mobileItems.length).toBe(3)
 
       expect(wrapper.find('.mobile-menu').text()).toContain('View Our Menu')
-      expect(wrapper.find('.mobile-menu').text()).toContain('Order Takeout')
-      expect(wrapper.find('.mobile-menu').text()).toContain('Order Delivery')
+      expect(wrapper.find('.mobile-menu').text()).toContain('Order Online')
       expect(wrapper.find('.mobile-menu').text()).toContain('Contact Us')
     })
   })

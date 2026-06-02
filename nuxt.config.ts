@@ -23,7 +23,7 @@ runtimeConfig: {
         imageUrl: '/img/banner.webp',
         logoUrl: '/img/chickpea-icon.webp',
         socialUrls: {
-          facebook: 'https://www.facebook.com/chickpeasmediterranean',
+          facebook: 'https://www.facebook.com/chickpeasmediterraneangrill',
         },
       },
       // Restaurant hours: Tue-Thu 6AM-6PM, Fri-Sat 6AM-8PM, Sun 6AM-4PM, Mon Closed

@@ -33,15 +33,11 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL('/')
   })
 
-  test('Order Takeout/Delivery links are external', async ({ page }) => {
+  test('Order Online link is external', async ({ page }) => {
     await page.goto('/')
 
-    const takeoutLink = page.locator('nav').locator('a', { hasText: 'Order Takeout' }).first()
-    await expect(takeoutLink).toHaveAttribute('target', '_blank')
-    await expect(takeoutLink).toHaveAttribute('rel', /noopener/)
-
-    const deliveryLink = page.locator('nav').locator('a', { hasText: 'Order Delivery' }).first()
-    await expect(deliveryLink).toHaveAttribute('target', '_blank')
-    await expect(deliveryLink).toHaveAttribute('rel', /noopener/)
+    const orderLink = page.locator('nav').locator('a', { hasText: 'Order Online' }).first()
+    await expect(orderLink).toHaveAttribute('target', '_blank')
+    await expect(orderLink).toHaveAttribute('rel', /noopener/)
   })
 })

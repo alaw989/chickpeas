@@ -166,8 +166,7 @@ const doordashUrl = siteDataJson?.external_urls?.doordash?.url || ''
 
 const menuItems = [
   { key: 'menu', label: 'View Our Menu', prefix: '1', to: '/menu' },
-  { key: 'takeout', label: 'Order Takeout', prefix: '2', url: doordashUrl },
-  { key: 'delivery', label: 'Order Delivery', prefix: '3', url: doordashUrl },
+  { key: 'order', label: 'Order Online', prefix: '2', url: doordashUrl },
   { key: 'contact', label: 'Contact Us', prefix: '4', to: '/contact' }
 ]
 
