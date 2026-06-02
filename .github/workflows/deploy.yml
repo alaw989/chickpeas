@@ -10,32 +10,48 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to DigitalOcean
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to droplet
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
-            # Ensure PM2 is installed globally
-            npm install -g pm2
-
-            # Add swap if not exists (prevents OOM on 1GB droplet)
-            if ! swapon --show | grep -q .; then
-              fallocate -l 2G /swapfile || dd if=/dev/zero of=/swapfile bs=1M count=2048
-              chmod 600 /swapfile
-              mkswap /swapfile
-              swapon /swapfile
-            fi
-
             cd /var/www/chickpeas
             git fetch origin main
             git reset --hard origin/main
-            npm install
+            npm install -g pm2
 
-            # Build with increased heap size
-            export NODE_OPTIONS="--max-old-space-size=1024"
-            npm run build
+      - name: Rsync build output
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -avzr --delete
+          path: .output/
+          remote_path: /var/www/chickpeas/.output/
+          remote_host: ${{ secrets.DROPLET_HOST }}
+          remote_user: ${{ secrets.DROPLET_USER }}
+          remote_key: ${{ secrets.DROPLET_SSH_KEY }}
 
-            # Start or restart PM2
-            pm2 restart chickpeas || pm2 start .output/server/index.mjs --name chickpeas
+      - name: Restart app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            pm2 restart chickpeas || pm2 start /var/www/chickpeas/.output/server/index.mjs --name chickpeas
