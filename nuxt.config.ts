@@ -6,7 +6,7 @@ export default defineNuxtConfig({
 
 runtimeConfig: {
     // Server-only config
-    wpMenuEndpoint: process.env.WP_MENU_ENDPOINT || 'https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc',
+    wpMenuEndpoint: process.env.WP_MENU_ENDPOINT || 'https://wp.chickpeas-mobile.com/wp-json/wp/v2/menu_item?per_page=100&order=asc&_embed',
     public: {
       siteUrl: 'https://chickpeas-mobile.com',
       business: {

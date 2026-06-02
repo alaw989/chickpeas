@@ -41,8 +41,14 @@ export default defineEventHandler(async (event) => {
 
   // If WordPress endpoint is configured, fetch from it
   if (endpoint) {
-    const data = await $fetch(endpoint)
-    return data
+    const data = await $fetch(endpoint) as any[]
+    // Transform embedded media into the expected { guid } format
+    return data.map((item: any) => ({
+      ...item,
+      image: item._embedded?.['wp:featuredmedia']?.[0]?.source_url
+        ? { guid: item._embedded['wp:featuredmedia'][0].source_url }
+        : null
+    }))
   }
 
   // Fallback to static data.json
