@@ -29,8 +29,9 @@ jobs:
             fi
 
             cd /var/www/chickpeas
-            git pull origin main
-            npm ci
+            git fetch origin main
+            git reset --hard origin/main
+            npm install
 
             # Build with increased heap size
             export NODE_OPTIONS="--max-old-space-size=1024"
